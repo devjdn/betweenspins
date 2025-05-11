@@ -37,7 +37,7 @@ export default async function RootLayout({
                     disableTransitionOnChange
                 >
                     <Header />
-                    {children}
+                    <main className="h-[200vh]">{children}</main>
                 </ThemeProvider>
             </body>
         </html>
