@@ -27,12 +27,14 @@ export interface Post {
     _id: string;
     _type: "post";
     title: string;
+    artist: string;
     genre: string;
     slug: {
         _type: "slug";
         current: string;
     };
     author: Author;
+    description: string;
     mainImage?: SanityImage;
     categories?: Category[];
     publishedAt: string;

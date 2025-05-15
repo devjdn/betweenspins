@@ -1,17 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Disc3 } from "lucide-react";
 import MobileNav from "./mobile-nav";
 import Link from "next/link";
-import { Instrument_Serif } from "next/font/google";
 import ThemeSwitcher from "../theme-switcher";
-
-export const instrument = Instrument_Serif({
-    weight: "400",
-    subsets: ["latin"],
-    style: "normal",
-});
+import Logo from "@/components/logo";
 
 export type NavType = {
     name: string;
@@ -47,25 +40,18 @@ export default function Header() {
     return (
         <>
             <header
-                className={`sticky top-0 z-50 dark:bg-transparent transition-all duration-300 ${
+                className={`sticky top-0 z-50 border-b border-b-border dark:bg-black/80 transition-all duration-300 ${
                     isScrolled
-                        ? "backdrop-blur-md backdrop-saturate-100 bg-primary/90"
+                        ? "backdrop-blur-md backdrop-saturate-100 bg-primary/70"
                         : "bg-primary"
                 } px-4 py-3 flex flex-row items-center gap-12`}
             >
                 <Link href={"/"}>
-                    <div className="flex flex-row gap-1 items-center">
-                        <Disc3 strokeWidth={0.75} className="stroke-white" />
-                        <span
-                            className={`${instrument.className} text-xl font-bold tracking-tight text-white`}
-                        >
-                            Between Spins
-                        </span>
-                    </div>
+                    <Logo />
                 </Link>
 
                 <nav className="ml-auto md:ml-0">
-                    <ul className={`hidden md:flex md:flex-row md:gap-4`}>
+                    {/* <ul className={`hidden md:flex md:flex-row md:gap-4`}>
                         {links.map((l, i) => (
                             <li key={i}>
                                 <Link href={l.href}>
@@ -75,13 +61,11 @@ export default function Header() {
                                 </Link>
                             </li>
                         ))}
-                    </ul>
+                    </ul> */}
                     <MobileNav links={links} />
                 </nav>
 
-                <div className="ml-auto">
-                    <ThemeSwitcher />
-                </div>
+                <ThemeSwitcher />
             </header>
             <div className="h-1" ref={sentinelRef} />
         </>

@@ -1,3 +1,4 @@
+import { Post } from "@/types/sanity";
 import { createClient, type ClientConfig } from "@sanity/client";
 
 const config: ClientConfig = {
@@ -13,4 +14,16 @@ export const sanity = createClient(config);
 export async function getPosts() {
     const posts = await sanity.fetch('*[_type == "post"]');
     return posts;
+}
+
+export async function postForPage(slug: string): Promise<Post | null> {
+    const query = `*[_type == "post" && slug.current == $slug][0] {
+  ...,
+  author->{
+    ...
+  }
+}`;
+    const post = await sanity.fetch(query, { slug });
+
+    return post ?? null;
 }

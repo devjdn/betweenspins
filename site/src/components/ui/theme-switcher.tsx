@@ -27,14 +27,16 @@ export default function ThemeSwitcher() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
-                {theme === "dark" ? (
-                    <MoonStar className="stroke-white" size={16} />
-                ) : theme === "light" ? (
-                    <Sun className="stroke-white" size={16} />
-                ) : theme === "system" ? (
-                    <Laptop className="stroke-white" size={16} />
-                ) : null}
+            <DropdownMenuTrigger asChild>
+                <button className="ml-auto">
+                    {theme === "dark" ? (
+                        <MoonStar className="stroke-white" size={16} />
+                    ) : theme === "light" ? (
+                        <Sun className="stroke-white" size={16} />
+                    ) : theme === "system" ? (
+                        <Laptop className="stroke-white" size={16} />
+                    ) : null}
+                </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4" side="bottom" sideOffset={8}>
                 <DropdownMenuLabel>Theme</DropdownMenuLabel>
