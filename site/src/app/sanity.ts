@@ -12,7 +12,9 @@ const config: ClientConfig = {
 export const sanity = createClient(config);
 
 export async function getPosts() {
-    const posts = await sanity.fetch('*[_type == "post"]');
+    const posts = await sanity.fetch(
+        '*[_type == "post"] | order(_createdAt desc)'
+    );
     return posts;
 }
 

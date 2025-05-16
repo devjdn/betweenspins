@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/ui/header/header";
@@ -8,6 +8,13 @@ import Footer from "@/components/ui/footer/footer";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
+});
+
+const instrument = Instrument_Serif({
+    style: "normal",
+    weight: "400",
+    subsets: ["latin"],
+    variable: "--font-serif",
 });
 
 const geistMono = Geist_Mono({
@@ -29,7 +36,7 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
+                className={`${instrument.variable} ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
             >
                 <ThemeProvider
                     attribute="class"
