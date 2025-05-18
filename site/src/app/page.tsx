@@ -12,10 +12,8 @@ export default async function Home() {
     return (
         <div>
             <Hero />
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="font-serif text-3xl font-bold mb-6">
-                    Latest Posts
-                </h1>
+            <div className="container mx-auto p-4 md:py-8">
+                <h1 className="font-serif text-3xl mb-6">Latest Posts</h1>
                 <div className="space-y-8">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {regularPosts.map((post, i) => (

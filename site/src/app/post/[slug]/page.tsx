@@ -26,7 +26,7 @@ export default async function PostPage({
     }
 
     return (
-        <article className="relative container mx-auto px-4 pt-8 mb-24">
+        <article className="relative container mx-auto px-4 my-24">
             <header className="flex flex-col gap-8 border-b border-b-border pb-12 mb-12 text-center">
                 <div>
                     <h1 className="font-serif text-4xl">{post.title}</h1>
