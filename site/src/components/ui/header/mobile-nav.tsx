@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { Button } from "../button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Link from "next/link";
+import ThemeSwitcher from "../theme-switcher";
 
 export default function MobileNav({ links }: { links: NavType[] }) {
     return (
@@ -30,6 +31,7 @@ export default function MobileNav({ links }: { links: NavType[] }) {
                                 </li>
                             ))}
                         </ul>
+                        <ThemeSwitcher />
                     </nav>
                 </SheetContent>
             </Sheet>

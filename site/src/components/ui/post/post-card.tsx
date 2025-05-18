@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function PostCard({ post }: { post: Post }) {
     return (
         <article className="w-full">
-            <div className="relative aspect-square overflow-hidden block mb-2">
+            <div className="relative border border-border aspect-square overflow-hidden block mb-2">
                 {post.mainImage && (
                     <Image
                         src={urlForImage(post.mainImage)}
@@ -21,8 +21,8 @@ export default function PostCard({ post }: { post: Post }) {
                 <p className="text-xs text-muted-foreground">
                     {formatDate(post.publishedAt)}
                 </p>
-                <p className="font-serif leading-5">{post.title}</p>
-                <p className="font-serif">{post.artist}</p>
+                <p className="font-serif leading-5 text-lg">{post.title}</p>
+                <p className="font-serif text-lg">{post.artist}</p>
             </div>
         </article>
     );

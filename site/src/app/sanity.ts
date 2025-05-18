@@ -18,6 +18,12 @@ export async function getPosts() {
     return posts;
 }
 
+export async function getAllSlugs(): Promise<string[]> {
+    const query = `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`;
+    const posts = await sanity.fetch(query);
+    return posts.map((post: { slug: string }) => post.slug);
+}
+
 export async function postForPage(slug: string): Promise<Post | null> {
     const query = `*[_type == "post" && slug.current == $slug][0] {
   ...,

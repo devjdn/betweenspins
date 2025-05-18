@@ -1,8 +1,16 @@
-import { postForPage } from "@/app/sanity";
+import { getAllSlugs, postForPage } from "@/app/sanity";
 import AuthoredBy from "@/components/ui/post-page/authored-by";
 import PostBody from "@/components/ui/post-page/post-body";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
+
+export const revalidate = 60;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+    const slugs = await getAllSlugs();
+    return slugs.map((slug) => ({ slug }));
+}
 
 export default async function PostPage({
     params,
