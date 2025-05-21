@@ -1,25 +1,25 @@
-import { getPosts } from "./sanity";
-import { Post } from "../types/sanity";
+import { getAlbums } from "./sanity";
+import { Album } from "../types/sanity";
 import Hero from "@/components/ui/hero";
 import Link from "next/link";
 import PostCard from "@/components/ui/post/post-card";
 
 export default async function Home() {
-    const posts = await getPosts();
-    console.log(posts);
-    const regularPosts = posts as Post[];
+    const albums = await getAlbums();
+    console.log(albums);
+    const regularAlbums = albums as Album[];
 
     return (
         <div>
             <Hero />
             <div className="container mx-auto p-4 md:py-8">
-                <h1 className="font-serif text-3xl mb-6">Latest Posts</h1>
+                <h1 className="font-serif text-3xl mb-6">Album Reviews</h1>
                 <div className="space-y-8">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {regularPosts.map((post, i) => (
+                        {regularAlbums.map((album, i) => (
                             <li key={i}>
-                                <Link href={`/post/${post.slug.current}`}>
-                                    <PostCard post={post} />
+                                <Link href={`/album/${album.slug.current}`}>
+                                    <PostCard post={album} />
                                 </Link>
                             </li>
                         ))}

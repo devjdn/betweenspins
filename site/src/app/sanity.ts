@@ -1,4 +1,4 @@
-import { Post } from "@/types/sanity";
+import { Album } from "@/types/sanity";
 import { createClient, type ClientConfig } from "@sanity/client";
 
 const config: ClientConfig = {
@@ -11,27 +11,27 @@ const config: ClientConfig = {
 
 export const sanity = createClient(config);
 
-export async function getPosts() {
-    const posts = await sanity.fetch(
-        '*[_type == "post"] | order(_createdAt desc)'
+export async function getAlbums() {
+    const albums = await sanity.fetch(
+        '*[_type == "album"] | order(_createdAt desc)'
     );
-    return posts;
+    return albums;
 }
 
-export async function getAllSlugs(): Promise<string[]> {
-    const query = `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`;
+export async function getAllAlbumSlugs(): Promise<string[]> {
+    const query = `*[_type == "album" && defined(slug.current)]{ "slug": slug.current }`;
     const posts = await sanity.fetch(query);
     return posts.map((post: { slug: string }) => post.slug);
 }
 
-export async function postForPage(slug: string): Promise<Post | null> {
-    const query = `*[_type == "post" && slug.current == $slug][0] {
+export async function albumForPage(slug: string): Promise<Album | null> {
+    const query = `*[_type == "album" && slug.current == $slug][0] {
   ...,
   author->{
     ...
   }
 }`;
-    const post = await sanity.fetch(query, { slug });
+    const album = await sanity.fetch(query, { slug });
 
-    return post ?? null;
+    return album ?? null;
 }

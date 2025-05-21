@@ -23,9 +23,8 @@ export interface Category {
     description?: string;
 }
 
-export interface Post {
+export interface BaseMusicContent {
     _id: string;
-    _type: "post";
     title: string;
     artist: string;
     genre: string;
@@ -42,6 +41,30 @@ export interface Post {
     rating?: number;
 }
 
+export interface Album extends BaseMusicContent {
+    _type: "album";
+    releaseDate: string;
+}
+
+export interface Single extends BaseMusicContent {
+    _type: "single";
+    releaseDate: string;
+}
+
+export interface Thought {
+    _id: string;
+    _type: "thought";
+    title: string;
+    slug: {
+        _type: "slug";
+        current: string;
+    };
+    author: Author;
+    categories?: Category[];
+    body: PortableTextBlock[];
+    publishedAt: string;
+}
+
 export interface SanityDocument {
     _id: string;
     _type: string;
@@ -50,5 +73,7 @@ export interface SanityDocument {
     _rev: string;
 }
 
-// Extend the base Post type with SanityDocument fields
-export type PostWithMetadata = Post & SanityDocument;
+// Extend the base types with SanityDocument fields
+export type AlbumWithMetadata = Album & SanityDocument;
+export type SingleWithMetadata = Single & SanityDocument;
+export type ThoughtWithMetadata = Thought & SanityDocument;

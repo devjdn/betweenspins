@@ -1,12 +1,12 @@
 import { formatDate } from "@/lib/formatDate";
 import { urlForImage } from "@/lib/sanity/image";
-import { Post } from "@/types/sanity";
+import { Album } from "@/types/sanity";
 import Image from "next/image";
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({ post }: { post: Album }) {
     return (
         <article className="w-full">
-            <div className="relative border border-border aspect-square overflow-hidden block mb-2">
+            <div className="relative aspect-square overflow-hidden block mb-2">
                 {post.mainImage && (
                     <Image
                         src={urlForImage(post.mainImage)}
