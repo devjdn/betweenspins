@@ -1,19 +1,22 @@
 "use client";
 
 import * as React from "react";
-// import MobileNav from "./mobile-nav";
 import Link from "next/link";
 import ThemeSwitcher from "../theme-switcher";
 import Logo from "@/components/logo";
+import {
+    SignInButton,
+    SignUpButton,
+    SignedIn,
+    SignedOut,
+    UserButton,
+} from "@clerk/nextjs";
+import { Button } from "../button";
 
 export type NavType = {
     name: string;
     href: string;
 };
-// const links: NavType[] = [
-//     { name: "Posts", href: "/posts" },
-//     { name: "Search", href: "/search" },
-// ];
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = React.useState<boolean>(false);
@@ -44,13 +47,26 @@ export default function Header() {
                     isScrolled
                         ? "backdrop-blur-md backdrop-saturate-100 bg-primary/70"
                         : "bg-primary"
-                } px-4 py-3 flex flex-row items-center gap-12`}
+                } px-4 py-3 flex flex-row items-center justify-between gap-12`}
             >
                 <Link href={"/"}>
                     <Logo />
                 </Link>
 
-                <ThemeSwitcher />
+                <div className="flex flex-row items-center gap-4">
+                    <SignedOut>
+                        <SignInButton>
+                            <Button variant="white">Sign In</Button>
+                        </SignInButton>
+                        <SignUpButton>
+                            <Button variant="white">Sign Up</Button>
+                        </SignUpButton>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
+                    <ThemeSwitcher />
+                </div>
             </header>
             <div className="h-0" ref={sentinelRef} />
         </>

@@ -11,6 +11,12 @@ const config: ClientConfig = {
 
 export const sanity = createClient(config);
 
+export async function getFiveLatestOfPostType(postType: string) {
+    const query = `*[_type == $postType] | order(_createdAt desc)[0...5]`;
+    const posts = await sanity.fetch(query, { postType });
+    return posts;
+}
+
 export async function getAlbums() {
     const albums = await sanity.fetch(
         '*[_type == "album"] | order(_createdAt desc)'

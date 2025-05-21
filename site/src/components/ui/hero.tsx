@@ -3,7 +3,7 @@ import Sunset from "../../../public/hero-sunset.png";
 
 export default function Hero() {
     return (
-        <div className="w-full grid text-center font-serif mb-16 border-b border-b-border">
+        <section className="w-full grid text-center font-serif mb-16 border-b border-b-border">
             <div className="relative min-h-[60vh] w-full col-start-1 row-start-1 z-1">
                 <Image
                     src={Sunset.src}
@@ -21,6 +21,6 @@ export default function Hero() {
                     not the way it makes <s>others feel</s>.
                 </p>
             </div>
-        </div>
+        </section>
     );
 }

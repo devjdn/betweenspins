@@ -28,7 +28,7 @@ export default function ThemeSwitcher() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="ml-auto">
+                <button>
                     {theme === "dark" ? (
                         <MoonStar className="stroke-white" size={16} />
                     ) : theme === "light" ? (

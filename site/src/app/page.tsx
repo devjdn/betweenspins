@@ -10,12 +10,14 @@ export default async function Home() {
     const regularAlbums = albums as Album[];
 
     return (
-        <div>
+        <main>
             <Hero />
-            <div className="container mx-auto p-4 md:py-8">
-                <h1 className="font-serif text-3xl mb-6">Album Reviews</h1>
+            <section className="container mx-auto p-4 md:py-8">
+                <h1 className="font-serif text-3xl mb-6">
+                    Latest Album Reviews
+                </h1>
                 <div className="space-y-8">
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                         {regularAlbums.map((album, i) => (
                             <li key={i}>
                                 <Link href={`/album/${album.slug.current}`}>
@@ -25,7 +27,15 @@ export default async function Home() {
                         ))}
                     </ul>
                 </div>
-            </div>
-        </div>
+            </section>
+            <section className="container mx-auto p-4 md:py-8">
+                <h1 className="font-serif text-3xl mb-6">
+                    Latest Single Reviews
+                </h1>
+            </section>
+            <section className="container mx-auto p-4 md:py-8">
+                <h1 className="font-serif text-3xl mb-6">Thoughts</h1>
+            </section>
+        </main>
     );
 }
