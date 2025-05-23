@@ -3,10 +3,10 @@ import { api } from "../../../../convex/_generated/api";
 import { fetchMutation } from "convex/nextjs";
 
 export async function POST(req: Request) {
-    // const secret = req.headers.get("x-webhook-token");
-    // if (secret !== process.env.SANITY_WEBHOOK_SECRET) {
-    //     return new Response("Unauthorized", { status: 401 });
-    // }
+    const secret = req.headers.get("x-webhook-token");
+    if (secret !== process.env.SANITY_WEBHOOK_SECRET) {
+        return new Response("Unauthorized", { status: 401 });
+    }
 
     const body = await req.json();
 
