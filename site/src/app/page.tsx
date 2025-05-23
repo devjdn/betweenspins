@@ -3,10 +3,17 @@ import { Album } from "../types/sanity";
 import Hero from "@/components/ui/hero";
 import Link from "next/link";
 import PostCard from "@/components/ui/post/post-card";
+import { getLikesForPost } from "../../convex/post_likes";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../convex/_generated/api";
 
 export default async function Home() {
-    const albums = await getAlbums();
-    console.log(albums);
+    const [albums, postLikes] = await Promise.all([
+        getAlbums(),
+        fetchQuery(api.post_likes.getLikesForPost, { slug: "blue" }),
+    ]);
+    // console.log(albums);
+    console.log(postLikes);
     const regularAlbums = albums as Album[];
 
     return (

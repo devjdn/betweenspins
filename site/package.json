@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@clerk/nextjs": "^6.19.5",
+        "@clerk/nextjs": "^6.20.0",
         "@portabletext/react": "^3.2.1",
         "@portabletext/types": "^2.0.13",
         "@radix-ui/react-avatar": "^1.1.10",
@@ -21,6 +21,7 @@
         "@sanity/image-url": "^1.1.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "convex": "^1.24.1",
         "date-fns": "^4.1.0",
         "extract-colors": "^4.2.0",
         "graphql": "^16.11.0",
@@ -36,7 +37,7 @@
         "@eslint/eslintrc": "^3.3.1",
         "@tailwindcss/postcss": "^4.1.7",
         "@types/node": "^22.15.21",
-        "@types/react": "^19.1.4",
+        "@types/react": "^19.1.5",
         "@types/react-dom": "^19.1.5",
         "eslint": "^9.27.0",
         "eslint-config-next": "15.3.1",

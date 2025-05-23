@@ -19,6 +19,19 @@ const components: PortableTextComponents = {
                 <code>{value.code}</code>
             </pre>
         ),
+        embed: ({ value }) => (
+            <iframe
+                src={value.url}
+                style={{
+                    width: "100%",
+                    height: "450px",
+                    border: "none",
+                    borderRadius: 0,
+                }}
+                allow="autoplay *; encrypted-media *;"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts"
+            />
+        ),
         // Add other custom types if needed
     },
     marks: {

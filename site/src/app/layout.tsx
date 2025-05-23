@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import Header from "@/components/ui/header/header";
 import Footer from "@/components/ui/footer/footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -47,7 +48,11 @@ export default async function RootLayout({
                         disableTransitionOnChange
                     >
                         <Header />
-                        <main className="grow">{children}</main>
+                        <main className="grow">
+                            <ConvexClientProvider>
+                                {children}
+                            </ConvexClientProvider>
+                        </main>
                         <Footer />
                     </ThemeProvider>
                 </body>
