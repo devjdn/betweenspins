@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/ui/header/header";
@@ -10,6 +10,11 @@ import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
+});
+
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
 });
 
 const instrument = Instrument_Serif({

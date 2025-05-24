@@ -8,12 +8,7 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
 
 export default async function Home() {
-    const [albums, postLikes] = await Promise.all([
-        getAlbums(),
-        fetchQuery(api.post_likes.getLikesForPost, { slug: "blue" }),
-    ]);
-    // console.log(albums);
-    console.log(postLikes);
+    const albums = await getAlbums();
     const regularAlbums = albums as Album[];
 
     return (
