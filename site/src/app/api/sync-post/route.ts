@@ -28,6 +28,9 @@ export async function POST(req: Request) {
             await fetchMutation(api.post_likes.removeDeletedPostFromConvex, {
                 slug,
             });
+        } else if (operation === "update") {
+            console.log("Update operation received — no action taken");
+            return new Response("Update ignored", { status: 200 });
         }
         return new Response("OK");
     } catch (err) {
