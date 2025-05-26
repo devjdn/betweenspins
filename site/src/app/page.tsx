@@ -4,14 +4,16 @@ import Hero from "@/components/ui/hero";
 import Link from "next/link";
 import PostCard from "@/components/ui/post/post-card";
 
+export const revalidate = 60;
+
 export default async function Home() {
     const [albums, singles]: [Album[], Single[]] = await Promise.all([
         getAlbums(),
         getSingles(),
     ]);
 
-    console.log(albums);
-    console.log(singles);
+    // console.log(albums);
+    // console.log(singles);
 
     return (
         <main>
