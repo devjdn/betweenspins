@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
+    console.log("Webhook body:", body);
 
     const slug = body?.slug?.current;
     if (!slug) {
@@ -16,6 +17,7 @@ export async function POST(req: Request) {
     }
 
     const operation = req.headers.get("sanity-operation");
+    console.log(operation);
 
     try {
         if (operation === "create") {
