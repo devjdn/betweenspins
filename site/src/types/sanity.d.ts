@@ -39,16 +39,15 @@ export interface BaseMusicContent {
     publishedAt: string;
     body: PortableTextBlock[];
     rating?: number;
+    releaseDate: string;
 }
 
 export interface Album extends BaseMusicContent {
     _type: "album";
-    releaseDate: string;
 }
 
 export interface Single extends BaseMusicContent {
     _type: "single";
-    releaseDate: string;
 }
 
 export interface Thought {

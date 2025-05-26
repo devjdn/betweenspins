@@ -87,5 +87,9 @@ const components: PortableTextComponents = {
 };
 
 export default function PostBody({ content }: PostBodyProps) {
-    return <PortableText value={content} components={components} />;
+    return (
+        <div>
+            <PortableText value={content} components={components} />
+        </div>
+    );
 }

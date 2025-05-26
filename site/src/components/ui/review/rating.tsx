@@ -3,25 +3,7 @@ import clsx from "clsx";
 export default function Rating({ rating }: { rating?: number }) {
     if (rating !== undefined)
         return (
-            <div className="space-y-2 w-full text-center">
-                <div>
-                    <p
-                        className={clsx(
-                            "font-semibold text-5xl",
-                            { "text-red-500 dark:text-red-400": rating < 50 },
-                            {
-                                "text-green-500 dark:text-green-400":
-                                    rating >= 75,
-                            },
-                            {
-                                "text-yellow-500 dark:text-yellow-400":
-                                    rating >= 50 && rating < 75,
-                            }
-                        )}
-                    >
-                        {rating}/100
-                    </p>
-                </div>
+            <div className="space-y-2 md:mx-auto text-center">
                 <div
                     className={clsx(
                         "h-2 w-full rounded-full",
@@ -45,6 +27,24 @@ export default function Rating({ rating }: { rating?: number }) {
                         )}
                         style={{ width: `${rating}%` }}
                     ></div>
+                </div>
+                <div>
+                    <p
+                        className={clsx(
+                            "font-semibold text-xl md:text-2xl",
+                            { "text-red-500 dark:text-red-400": rating < 50 },
+                            {
+                                "text-green-500 dark:text-green-400":
+                                    rating >= 75,
+                            },
+                            {
+                                "text-yellow-500 dark:text-yellow-400":
+                                    rating >= 50 && rating < 75,
+                            }
+                        )}
+                    >
+                        {rating}/100
+                    </p>
                 </div>
             </div>
         );

@@ -25,3 +25,17 @@ export const insertEntryOnPostCreation = mutation({
         }
     },
 });
+
+export const removeDeletedPostFromConvex = mutation({
+    args: { slug: v.string() },
+    handler: async (ctx, args) => {
+        const slug = await ctx.db
+            .query("post_likes")
+            .filter((q) => q.eq(q.field("slug"), args.slug))
+            .first();
+
+        if (slug) {
+            await ctx.db.delete(slug._id);
+        }
+    },
+});

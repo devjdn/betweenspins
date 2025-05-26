@@ -15,8 +15,18 @@ export async function POST(req: Request) {
         return new Response("Missing slug", { status: 400 });
     }
 
+    const operation = req.headers.get("sanity-operation");
+
     try {
-        await fetchMutation(api.post_likes.insertEntryOnPostCreation, { slug });
+        if (operation === "create") {
+            await fetchMutation(api.post_likes.insertEntryOnPostCreation, {
+                slug,
+            });
+        } else if (operation === "delete") {
+            await fetchMutation(api.post_likes.removeDeletedPostFromConvex, {
+                slug,
+            });
+        }
         return new Response("OK");
     } catch (err) {
         console.error("Error syncing post:", err);

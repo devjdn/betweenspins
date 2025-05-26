@@ -1,9 +1,9 @@
 import { formatDate } from "@/lib/formatDate";
 import { urlForImage } from "@/lib/sanity/image";
-import { Album } from "@/types/sanity";
+import { BaseMusicContent } from "@/types/sanity";
 import Image from "next/image";
 
-export default function PostCard({ post }: { post: Album }) {
+export default function PostCard({ post }: { post: BaseMusicContent }) {
     return (
         <article className="w-full">
             <div className="relative aspect-square overflow-hidden block mb-2">
