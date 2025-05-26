@@ -3,15 +3,15 @@ import { Album, Single } from "../types/sanity";
 import Hero from "@/components/ui/hero";
 import Link from "next/link";
 import PostCard from "@/components/ui/post/post-card";
-import { getLikesForPost } from "../../convex/post_likes";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "../../convex/_generated/api";
 
 export default async function Home() {
     const [albums, singles]: [Album[], Single[]] = await Promise.all([
         getAlbums(),
         getSingles(),
     ]);
+
+    console.log(albums);
+    console.log(singles);
 
     return (
         <main>
