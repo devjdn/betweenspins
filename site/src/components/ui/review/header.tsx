@@ -31,7 +31,7 @@ export default function ReviewHeader({
                 {mainImage && (
                     <div className="w-full md:w-1/3 space-y-4">
                         <Image
-                            className="aspect-square w-full object-cover object-center shadow-lg rounded-lg"
+                            className="aspect-square w-full object-cover object-center shadow-lg "
                             height={400}
                             width={400}
                             priority

@@ -9,15 +9,21 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    console.log("Webhook body:", body);
-
     const slug = body?.slug?.current;
+    const operation = req.headers.get("sanity-operation");
+    const docId = body?._id;
+
+    console.log("Webhook body:", body);
+    console.log(operation);
+
     if (!slug) {
         return new Response("Missing slug", { status: 400 });
     }
 
-    const operation = req.headers.get("sanity-operation");
-    console.log(operation);
+    if (docId?.startsWith("drafts.")) {
+        console.log("Ignoring draft event.");
+        return new Response("Ignored draft event", { status: 200 });
+    }
 
     try {
         if (operation === "create") {
@@ -31,6 +37,8 @@ export async function POST(req: Request) {
         } else if (operation === "update") {
             console.log("Update operation received — no action taken");
             return new Response("Update ignored", { status: 200 });
+        } else {
+            console.log("Unknown operation:", operation);
         }
         return new Response("OK");
     } catch (err) {
