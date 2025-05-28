@@ -43,7 +43,7 @@ export default function Rating({ rating }: { rating?: number }) {
                             }
                         )}
                     >
-                        {rating}/100
+                        {rating / 10}
                     </p>
                 </div>
             </div>

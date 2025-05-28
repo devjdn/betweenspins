@@ -5,10 +5,11 @@ import { ListMusic, PencilLine, CalendarRange } from "lucide-react";
 import { Badge } from "../badge";
 import Rating from "./rating";
 import Image from "next/image";
+import LikeButton from "../post/like-btn";
 
 type ReviewHeaderProps = Omit<
     BaseMusicContent,
-    "_id" | "slug" | "categories" | "body"
+    "_id" | "categories" | "body"
 > & {
     reviewType: string;
 };
@@ -24,6 +25,7 @@ export default function ReviewHeader({
     description,
     mainImage,
     reviewType,
+    slug,
 }: ReviewHeaderProps) {
     return (
         <header className="flex flex-col gap-8">
@@ -78,6 +80,7 @@ export default function ReviewHeader({
             <div className="rounded-md bg-muted p-4 border">
                 <p className="text-muted-foreground text-base">{description}</p>
             </div>
+            <LikeButton slug={slug.current} />
         </header>
     );
 }
