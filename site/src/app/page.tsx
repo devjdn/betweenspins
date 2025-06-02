@@ -2,7 +2,7 @@ import { getAlbums, getSingles } from "./sanity";
 import { Album, Single } from "../types/sanity";
 import Hero from "@/components/ui/hero";
 import Link from "next/link";
-import PostCard from "@/components/ui/post/post-card";
+import PostCard from "@/components/ui/post/post-cover-card";
 import { Separator } from "@/components/ui/separator";
 import PostSection from "@/components/ui/post/post-section";
 

@@ -43,7 +43,9 @@ export default function Rating({ rating }: { rating?: number }) {
                             }
                         )}
                     >
-                        {rating / 10}
+                        {rating === 0 || rating === 100
+                            ? rating / 10
+                            : (rating / 10).toFixed(1)}
                     </p>
                 </div>
             </div>
