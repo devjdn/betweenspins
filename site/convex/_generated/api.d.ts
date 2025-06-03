@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as comments from "../comments.js";
 import type * as post_likes from "../post_likes.js";
 
 /**
@@ -24,6 +25,7 @@ import type * as post_likes from "../post_likes.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  comments: typeof comments;
   post_likes: typeof post_likes;
 }>;
 export declare const api: FilterApi<

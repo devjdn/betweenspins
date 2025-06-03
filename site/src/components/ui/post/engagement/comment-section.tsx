@@ -1,3 +1,5 @@
+"use client";
+
 export default function CommentSection() {
-    return <></>;
+    return <div className="flex flex-col gap-4"></div>;
 }

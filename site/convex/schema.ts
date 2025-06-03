@@ -16,7 +16,8 @@ export default defineSchema({
 
     comments: defineTable({
         postId: v.id("post_likes"),
-        userId: v.string(),
+        slug: v.string(),
+        clerkUserId: v.string(),
         userName: v.string(),
         content: v.string(),
     }),

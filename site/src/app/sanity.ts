@@ -1,4 +1,4 @@
-import { Album, Single } from "@/types/sanity";
+import { Album, Single, Thought } from "@/types/sanity";
 import { createClient, type ClientConfig } from "@sanity/client";
 
 const config: ClientConfig = {
@@ -13,26 +13,36 @@ export const sanity = createClient(config);
 
 /* Not got a usage yet */
 
-export async function getFiveLatestOfPostType(postType: string) {
-    const query = `*[_type == $postType] | order(_createdAt desc)[0...5]`;
+export async function getFourLatestOfPostType(
+    postType: string
+): Promise<Album[] | Single[] | Thought[]> {
+    const query = `*[_type == $postType] | order(_createdAt desc)[0...4]`;
     const posts = await sanity.fetch(query, { postType });
+
     return posts;
 }
 
 /* For bulk fetching a post type */
 
-export async function getAlbums() {
+export async function getAlbums(): Promise<Album[]> {
     const albums = await sanity.fetch(
         '*[_type == "album"] | order(_createdAt desc)'
     );
     return albums;
 }
 
-export async function getSingles() {
+export async function getSingles(): Promise<Single[]> {
     const singles = await sanity.fetch(
         '*[_type == "single"] | order(_createdAt desc)'
     );
     return singles;
+}
+
+export async function getThoughts(): Promise<Thought[]> {
+    const thoughts = await sanity.fetch(`
+        *[_type == "thought"] | order(_createdAt desc)`);
+
+    return thoughts;
 }
 
 /* For ISR for post pages */
@@ -49,6 +59,20 @@ export async function getAllReviewSlugs(): Promise<
 
     const reviews = await sanity.fetch(query);
     return reviews;
+}
+
+export async function getAllThoughtSlugs(): Promise<
+    Array<{ type: string; slug: string }>
+> {
+    const query = `
+        *[_type == "thought" && defined(slug.current)] {
+            "slug": slug.current,
+            "type": _type
+        }
+    `;
+
+    const thoughts = await sanity.fetch(query);
+    return thoughts;
 }
 
 /* For post pages */
@@ -84,7 +108,19 @@ export async function singleForPage(slug: string): Promise<Single | null> {
         ...
       }
     }`;
-    const album = await sanity.fetch(query, { slug });
+    const single = await sanity.fetch(query, { slug });
 
-    return album ?? null;
+    return single ?? null;
+}
+
+export async function thoughtForPage(slug: string): Promise<Thought | null> {
+    const query = `*[_type == "thought" && slug.current == $slug][0] {
+      ...,
+      author->{
+        ...
+      }
+    }`;
+    const thought = await sanity.fetch(query, { slug });
+
+    return thought ?? null;
 }

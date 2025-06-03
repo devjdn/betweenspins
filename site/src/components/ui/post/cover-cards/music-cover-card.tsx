@@ -2,10 +2,10 @@ import { formatDate } from "@/lib/formatDate";
 import { urlForImage } from "@/lib/sanity/image";
 import { BaseMusicContent } from "@/types/sanity";
 import Image from "next/image";
-import { Badge } from "../badge";
+import { Badge } from "../../badge";
 import { Calendar, Music } from "lucide-react";
 
-export default function PostCard({ post }: { post: BaseMusicContent }) {
+export default function MusicCoverCard({ post }: { post: BaseMusicContent }) {
     return (
         <article className="w-full group">
             <div className="relative aspect-square overflow-hidden mb-4 bg-muted">

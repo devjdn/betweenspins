@@ -1,24 +1,29 @@
-import { getAlbums, getSingles } from "./sanity";
-import { Album, Single } from "../types/sanity";
+import {
+    getAlbums,
+    getFourLatestOfPostType,
+    getSingles,
+    getThoughts,
+} from "./sanity";
+import { Album, Single, Thought } from "../types/sanity";
 import Hero from "@/components/ui/hero";
-import Link from "next/link";
-import PostCard from "@/components/ui/post/post-cover-card";
 import { Separator } from "@/components/ui/separator";
 import PostSection from "@/components/ui/post/post-section";
 
 export const revalidate = 60;
 
 export default async function Home() {
-    const [albums, singles]: [Album[], Single[]] = await Promise.all([
-        getAlbums(),
-        getSingles(),
+    const [albums, singles, thoughts] = await Promise.all([
+        getFourLatestOfPostType("album"),
+        getFourLatestOfPostType("single"),
+        getFourLatestOfPostType("thought"),
     ]);
 
     // console.log(albums);
     // console.log(singles);
+    console.log(thoughts);
 
     return (
-        <main className="space-y-16">
+        <main className="space-y-16 pb-16">
             <Hero />
 
             <PostSection
@@ -41,9 +46,11 @@ export default async function Home() {
 
             <Separator orientation="horizontal" />
 
-            <section className="container mx-auto px-4">
-                <h1 className="font-serif text-3xl mb-6">Thoughts</h1>
-            </section>
+            <PostSection
+                posts={thoughts}
+                title={"Latest Thoughts"}
+                type={"thought"}
+            />
         </main>
     );
 }

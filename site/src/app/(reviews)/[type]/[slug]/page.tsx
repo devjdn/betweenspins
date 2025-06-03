@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import ReviewHeader from "@/components/ui/review/header";
 import { Album, Single } from "@/types/sanity";
 import PostEngagement from "@/components/ui/post/post-engagement";
-import { getPostLikes } from "@/lib/convex";
 import type { Metadata, ResolvingMetadata } from "next";
 
 export const revalidate = 60;
@@ -53,10 +52,7 @@ export default async function ReviewPage({
         return <h1>Invalid review type.</h1>;
     }
 
-    const [review, likeCount] = await Promise.all([
-        getReviewForPage(type, slug),
-        getPostLikes(slug),
-    ]);
+    const review = await getReviewForPage(type, slug);
 
     if (review === null) {
         return <h1>No {type} review found.</h1>;
