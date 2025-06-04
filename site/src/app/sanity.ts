@@ -1,4 +1,11 @@
-import { Album, Single, Thought } from "@/types/sanity";
+import {
+    Album,
+    AlbumWithMetadata,
+    Single,
+    SingleWithMetadata,
+    Thought,
+    ThoughtWithMetadata,
+} from "@/types/sanity";
 import { createClient, type ClientConfig } from "@sanity/client";
 
 const config: ClientConfig = {
@@ -11,7 +18,69 @@ const config: ClientConfig = {
 
 export const sanity = createClient(config);
 
-/* Not got a usage yet */
+/* For sitemaps */
+
+export async function reviewPostCount() {
+    const query = `
+    {
+      "singles": count(*[_type == "single"]),
+      "albums": count(*[_type == "album"])
+    }
+  `;
+
+    const counts: { albums: number; singles: number } = await sanity.fetch(
+        query
+    );
+
+    return counts.albums + counts.singles;
+}
+
+export async function thoughtPostCount() {
+    const query = `
+    {
+      "thoughts": count(*[_type == "thought"]),
+    }
+  `;
+
+    const counts: { thoughts: number } = await sanity.fetch(query);
+
+    return counts.thoughts;
+}
+
+export async function getReviewsInRange(start: number, end: number) {
+    const posts: SingleWithMetadata[] | AlbumWithMetadata[] =
+        await sanity.fetch(
+            `*[_type in ["single", "album"]]|order(_updatedAt desc)[${start}...${end}]{
+              "slug": slug.current,
+              "_updatedAt": _updatedAt,
+              "_type": _type
+            }`
+        );
+
+    return posts.map((p) => ({
+        slug: p.slug,
+        updatedAt: p._updatedAt,
+        type: p._type,
+    }));
+}
+
+export async function getThoughtsInRange(start: number, end: number) {
+    const posts: ThoughtWithMetadata[] = await sanity.fetch(
+        `*[_type == "thought"]|order(_updatedAt desc)[${start}...${end}]{
+              "slug": slug.current,
+              "_updatedAt": _updatedAt,
+              "_type": _type
+            }`
+    );
+
+    return posts.map((p) => ({
+        slug: p.slug,
+        updatedAt: p._updatedAt,
+        type: p._type,
+    }));
+}
+
+/* For home page */
 
 export async function getFourLatestOfPostType(
     postType: string

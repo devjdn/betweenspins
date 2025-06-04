@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: "https://betweenspins.com",
             lastModified: new Date(),
-            changeFrequency: "yearly",
+            changeFrequency: "weekly",
             priority: 1,
         },
     ];

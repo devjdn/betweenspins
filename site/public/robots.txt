@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://betweenspins.vercel.app/sitemap.xml 
+Sitemap: https://www.betweenspins.vercel.app/sitemap.xml 

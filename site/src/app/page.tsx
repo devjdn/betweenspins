@@ -20,7 +20,7 @@ export default async function Home() {
 
     // console.log(albums);
     // console.log(singles);
-    console.log(thoughts);
+    // console.log(thoughts);
 
     return (
         <main className="space-y-16 pb-16">
