@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })),
 
         ...combinedSitemaps.map(({ id }) => ({
-            url: `https://www.betweenspins.com/reviews/album/sitemap/${id}.xml`,
+            url: `https://www.betweenspins.com/reviews/albums/sitemap/${id}.xml`,
             lastModified: now,
         })),
     ];

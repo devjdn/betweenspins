@@ -20,7 +20,7 @@ export default async function sitemap({
     const posts = await getReviewsInRange(start, end);
 
     return posts.map((post) => ({
-        url: `https://www.betweenspins.com/${post.type}/${post.slug}`,
+        url: `https://www.betweenspins.com/reviews/${post.type}/${post.slug}`,
         lastModified: post.updatedAt,
     }));
 }
