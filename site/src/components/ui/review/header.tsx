@@ -46,7 +46,7 @@ export default function ReviewHeader({
                         {reviewType}
                     </Badge>
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+                        <h1 className="font-serif text-3xl md:text-4xl tracking-tight">
                             {title}
                         </h1>
                         <h2 className="text-xl md:text-2xl text-muted-foreground">

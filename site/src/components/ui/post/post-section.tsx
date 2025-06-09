@@ -1,4 +1,4 @@
-import { BaseMusicContent, Thought } from "@/types/sanity";
+import { Albums, Tracks, Thought } from "@/types/sanity";
 import Link from "next/link";
 import MusicCoverCard from "./cover-cards/music-cover-card";
 import ThoughtCoverCard from "./cover-cards/thought-cover-card";
@@ -6,9 +6,9 @@ import { ArrowRight } from "lucide-react";
 import clsx from "clsx";
 
 type SectionTypes = {
-    posts: BaseMusicContent[] | Thought[];
+    posts: Albums[] | Tracks[] | Thought[];
     title: string;
-    type: "album" | "single" | "thought";
+    type: "albums" | "tracks" | "thought";
 };
 
 export default function PostSection({ posts, title, type }: SectionTypes) {
@@ -28,7 +28,7 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                 className={clsx(
                     {
                         "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8":
-                            type === "album" || type === "single",
+                            type === "albums" || type === "tracks",
                     },
                     { "flex flex-col gap-4": type === "thought" }
                 )}
@@ -36,14 +36,16 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                 {posts.map((post, i) => (
                     <Link
                         key={i}
-                        href={`/${type}/${post.slug.current}`}
+                        href={`${
+                            type !== "thought" ? "/reviews/" : ""
+                        }${type}/${post.slug.current}`}
                         className={clsx("group block", {
                             "transition-transform duration-200 hover:scale-[1.02]":
                                 type !== "thought",
                         })}
                     >
-                        {type === "album" || type === "single" ? (
-                            <MusicCoverCard post={post as BaseMusicContent} />
+                        {type === "albums" || type === "tracks" ? (
+                            <MusicCoverCard post={post as Albums | Tracks} />
                         ) : (
                             <ThoughtCoverCard post={post as Thought} />
                         )}

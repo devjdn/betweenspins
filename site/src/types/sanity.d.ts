@@ -42,12 +42,12 @@ export interface BaseMusicContent {
     releaseDate: string;
 }
 
-export interface Album extends BaseMusicContent {
-    _type: "album";
+export interface Albums extends BaseMusicContent {
+    _type: "albums";
 }
 
-export interface Single extends BaseMusicContent {
-    _type: "single";
+export interface Tracks extends BaseMusicContent {
+    _type: "tracks";
 }
 
 export interface Thought {
@@ -73,6 +73,6 @@ export interface SanityDocument {
 }
 
 // Extend the base types with SanityDocument fields
-export type AlbumWithMetadata = Album & SanityDocument;
-export type SingleWithMetadata = Single & SanityDocument;
+export type AlbumsWithMetadata = Albums & SanityDocument;
+export type TracksWithMetadata = Tracks & SanityDocument;
 export type ThoughtWithMetadata = Thought & SanityDocument;

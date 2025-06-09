@@ -6,7 +6,7 @@ import {
 import PostBody from "@/components/ui/post/post-body-text";
 import { Separator } from "@/components/ui/separator";
 import ReviewHeader from "@/components/ui/review/header";
-import { Album, BaseMusicContent, Single } from "@/types/sanity";
+import { BaseMusicContent } from "@/types/sanity";
 import PostEngagement from "@/components/ui/post/post-engagement";
 import type { Metadata, ResolvingMetadata } from "next";
 import RelatedReviewPosts from "@/components/ui/review/related-posts/related-posts";
@@ -35,8 +35,7 @@ export async function generateMetadata(
 
     if (!review) {
         return {
-            title: "Review Not Found | Between Spins",
-            description: "The requested review could not be found.",
+            title: "Review Not Found",
         };
     }
 
@@ -53,45 +52,42 @@ export default async function ReviewPage({
 }) {
     const { type, slug } = await params;
 
-    if (!["album", "single"].includes(type)) {
+    if (!["albums", "tracks"].includes(type)) {
         return <h1>Invalid review type.</h1>;
     }
 
+    const musicType = type as "albums" | "tracks";
+
     const [review, relatedPosts] = await Promise.all([
-        getReviewForPage(type, slug),
-        getRelatedPosts(type, slug, 3),
+        getReviewForPage(musicType, slug),
+        getRelatedPosts(musicType, slug, 3),
     ]);
 
     if (review === null) {
-        return <h1>No {type} review found.</h1>;
+        return <h1>No {musicType} review found.</h1>;
     }
-
-    const reviewData = review as Album | Single;
 
     return (
         <main className="flex flex-col lg:grid lg:grid-cols-[1fr_300px] gap-12 px-4 md:px-12 py-12 md:py-20">
             {/* The post */}
             <article className="container mx-auto max-w-4xl space-y-8 flex-1">
                 <ReviewHeader
-                    reviewType={type === "album" ? "Album" : "Single"}
-                    {...reviewData}
+                    reviewType={musicType === "albums" ? "Album" : "Track"}
+                    {...review}
                 />
 
                 <Separator orientation="horizontal" />
 
-                <PostBody content={reviewData.body} />
+                <PostBody content={review.body} />
 
                 <Separator orientation="horizontal" />
 
-                <PostEngagement
-                    slug={reviewData.slug.current}
-                    comment_count={0}
-                />
+                <PostEngagement slug={review.slug.current} comment_count={0} />
             </article>
 
             {/* Other posts of the same type */}
             <RelatedReviewPosts
-                type={"album"}
+                type={musicType}
                 posts={relatedPosts as BaseMusicContent[]}
             />
         </main>

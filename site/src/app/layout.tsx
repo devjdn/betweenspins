@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Inter, DM_Serif_Text, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/ui/header/header";
@@ -7,16 +7,22 @@ import Footer from "@/components/ui/footer/footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 
+const instrument = Instrument_Serif({
+    style: "normal",
+    weight: "400",
+    subsets: ["latin"],
+    variable: "--font-instrument-serif",
+});
+
 const inter = Inter({
     subsets: ["latin"],
     variable: "--font-inter",
 });
 
-const instrument = Instrument_Serif({
-    style: "normal",
-    weight: "400",
+const dm_serif = DM_Serif_Text({
     subsets: ["latin"],
     variable: "--font-serif",
+    weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +40,7 @@ export default async function RootLayout({
         <ClerkProvider>
             <html lang="en" suppressHydrationWarning>
                 <body
-                    className={`${instrument.variable} ${inter.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
+                    className={`${dm_serif.variable} ${instrument.variable} ${inter.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
                 >
                     <ThemeProvider
                         attribute="class"

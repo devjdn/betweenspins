@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [thoughtSitemaps, combinedSitemaps] = await Promise.all([
-        import("@/app/(reviews)/[type]/sitemap").then((mod) =>
+        import("@/app/reviews/[type]/sitemap").then((mod) =>
             mod.generateSitemaps()
         ),
         import("./thought/sitemap").then((mod) => mod.generateSitemaps()),
@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })),
 
         ...combinedSitemaps.map(({ id }) => ({
-            url: `https://www.betweenspins.com/album/sitemap/${id}.xml`,
+            url: `https://www.betweenspins.com/reviews/album/sitemap/${id}.xml`,
             lastModified: now,
         })),
     ];

@@ -9,7 +9,7 @@ export default function ThoughtHeader({ ...props }: ThoughtHeaderProps) {
     return (
         <header className="flex flex-col gap-4">
             <Badge variant={"post"}>Thought</Badge>
-            <h1 className=" text-3xl md:text-4xl font-bold tracking-tight">
+            <h1 className="font-serif text-3xl md:text-4xl  tracking-tight">
                 {props.title}
             </h1>
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">

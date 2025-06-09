@@ -1,9 +1,9 @@
 import {
-    Album,
-    AlbumWithMetadata,
+    Albums,
+    AlbumsWithMetadata,
     BaseMusicContent,
-    Single,
-    SingleWithMetadata,
+    Tracks,
+    TracksWithMetadata,
     Thought,
     ThoughtWithMetadata,
 } from "@/types/sanity";
@@ -24,16 +24,16 @@ export const sanity = createClient(config);
 export async function reviewPostCount() {
     const query = `
     {
-      "singles": count(*[_type == "single"]),
-      "albums": count(*[_type == "album"])
+      "tracks": count(*[_type == "tracks"]),
+      "albums": count(*[_type == "albums"])
     }
   `;
 
-    const counts: { albums: number; singles: number } = await sanity.fetch(
+    const counts: { albums: number; tracks: number } = await sanity.fetch(
         query
     );
 
-    return counts.albums + counts.singles;
+    return counts.albums + counts.tracks;
 }
 
 export async function thoughtPostCount() {
@@ -49,13 +49,13 @@ export async function thoughtPostCount() {
 }
 
 export async function getReviewsInRange(start: number, end: number) {
-    const posts: SingleWithMetadata[] | AlbumWithMetadata[] =
+    const posts: TracksWithMetadata[] | AlbumsWithMetadata[] =
         await sanity.fetch(
-            `*[_type in ["single", "album"]]|order(_updatedAt desc)[${start}...${end}]{
-              "slug": slug.current,
-              "_updatedAt": _updatedAt,
-              "_type": _type
-            }`
+            `*[_type in ["tracks", "albums"]]|order(_updatedAt desc)[${start}...${end}]{
+          "slug": slug.current,
+          "_updatedAt": _updatedAt,
+          "_type": _type
+        }`
         );
 
     return posts.map((p) => ({
@@ -85,34 +85,26 @@ export async function getThoughtsInRange(start: number, end: number) {
 
 export async function getFourLatestOfPostType(
     postType: string
-): Promise<Album[] | Single[] | Thought[]> {
+): Promise<Albums[] | Tracks[] | Thought[]> {
     const query = `*[_type == $postType] | order(_createdAt desc)[0...4]`;
     const posts = await sanity.fetch(query, { postType });
-
     return posts;
 }
 
 /* For bulk fetching a post type */
 
-export async function getAlbums(): Promise<Album[]> {
+export async function getAlbums(): Promise<Albums[]> {
     const albums = await sanity.fetch(
-        '*[_type == "album"] | order(_createdAt desc)'
+        '*[_type == "albums"] | order(_createdAt desc)'
     );
     return albums;
 }
 
-export async function getSingles(): Promise<Single[]> {
+export async function getSingles(): Promise<Tracks[]> {
     const singles = await sanity.fetch(
-        '*[_type == "single"] | order(_createdAt desc)'
+        '*[_type == "tracks"] | order(_createdAt desc)'
     );
     return singles;
-}
-
-export async function getThoughts(): Promise<Thought[]> {
-    const thoughts = await sanity.fetch(`
-        *[_type == "thought"] | order(_createdAt desc)`);
-
-    return thoughts;
 }
 
 /* For ISR for post pages */
@@ -121,7 +113,7 @@ export async function getAllReviewSlugs(): Promise<
     Array<{ type: string; slug: string }>
 > {
     const query = `
-        *[_type in ["album", "single"] && defined(slug.current)] {
+        *[_type in ["albums", "tracks"] && defined(slug.current)] {
             "slug": slug.current,
             "type": _type
         }
@@ -150,10 +142,10 @@ export async function getAllThoughtSlugs(): Promise<
 export async function getReviewForPage(
     type: string,
     slug: string
-): Promise<Album | Single | null> {
-    if (type === "album") {
+): Promise<Albums | Tracks | null> {
+    if (type === "albums") {
         return await albumForPage(slug);
-    } else if (type === "single") {
+    } else if (type === "tracks") {
         return await singleForPage(slug);
     }
     return null;
@@ -186,31 +178,27 @@ export async function getRelatedPosts(
 
 /* These are being used in the getReviewForPage function */
 
-export async function albumForPage(slug: string): Promise<Album | null> {
-    const query = `*[_type == "album" && slug.current == $slug][0] {
+export async function albumForPage(slug: string): Promise<Albums | null> {
+    const query = `*[_type == "albums" && slug.current == $slug][0] {
       ...,
       author->{
         ...
       }
     }`;
     const album = await sanity.fetch(query, { slug });
-
     return album ?? null;
 }
 
-export async function singleForPage(slug: string): Promise<Single | null> {
-    const query = `*[_type == "single" && slug.current == $slug][0] {
+export async function singleForPage(slug: string): Promise<Tracks | null> {
+    const query = `*[_type == "tracks" && slug.current == $slug][0] {
       ...,
       author->{
         ...
       }
     }`;
     const single = await sanity.fetch(query, { slug });
-
     return single ?? null;
 }
-
-/* This function is exclusively being used for thought pages */
 
 export async function thoughtForPage(slug: string): Promise<Thought | null> {
     const query = `*[_type == "thought" && slug.current == $slug][0] {
@@ -220,6 +208,5 @@ export async function thoughtForPage(slug: string): Promise<Thought | null> {
       }
     }`;
     const thought = await sanity.fetch(query, { slug });
-
     return thought ?? null;
 }
