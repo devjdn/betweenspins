@@ -54,7 +54,7 @@ export default function ReviewHeader({
                         </h2>
                     </div>
                     <Badge variant={"default"}>{genre}</Badge>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
+                    <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-2 sm:gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                             <ListMusic className="w-4 h-4" />
                             <span>Released in {releaseDate}</span>

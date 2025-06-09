@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif, Inter } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/ui/header/header";
 import Footer from "@/components/ui/footer/footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
 
 const inter = Inter({
     subsets: ["latin"],
@@ -22,11 +17,6 @@ const instrument = Instrument_Serif({
     weight: "400",
     subsets: ["latin"],
     variable: "--font-serif",
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +34,7 @@ export default async function RootLayout({
         <ClerkProvider>
             <html lang="en" suppressHydrationWarning>
                 <body
-                    className={`${instrument.variable} ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
+                    className={`${instrument.variable} ${inter.variable} antialiased min-h-screen bg-cover bg-fixed bg-blend-normal flex flex-col`}
                 >
                     <ThemeProvider
                         attribute="class"

@@ -2,8 +2,6 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-    // Other tables here...
-
     post_likes: defineTable({
         like_count: v.float64(),
         slug: v.string(),
@@ -16,9 +14,8 @@ export default defineSchema({
 
     comments: defineTable({
         postId: v.id("post_likes"),
-        slug: v.string(),
         clerkUserId: v.string(),
         userName: v.string(),
         content: v.string(),
-    }),
+    }).index("by_postId", ["postId"]),
 });

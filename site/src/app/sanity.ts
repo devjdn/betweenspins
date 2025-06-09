@@ -1,6 +1,7 @@
 import {
     Album,
     AlbumWithMetadata,
+    BaseMusicContent,
     Single,
     SingleWithMetadata,
     Thought,
@@ -144,7 +145,7 @@ export async function getAllThoughtSlugs(): Promise<
     return thoughts;
 }
 
-/* For post pages */
+/* For review pages */
 
 export async function getReviewForPage(
     type: string,
@@ -157,6 +158,33 @@ export async function getReviewForPage(
     }
     return null;
 }
+
+export async function getRelatedPosts(
+    type: string,
+    currentSlug: string,
+    limit: number = 3
+): Promise<Array<BaseMusicContent | Thought>> {
+    const query = `
+    *[_type == $type && slug.current != $currentSlug] 
+    | order(_createdAt desc)[0...$limit] {
+      ...
+    }
+  `;
+
+    try {
+        const data = await sanity.fetch(query, {
+            type,
+            currentSlug,
+            limit,
+        });
+        return data;
+    } catch (error) {
+        console.error("Error fetching related posts from Sanity:", error);
+        return [];
+    }
+}
+
+/* These are being used in the getReviewForPage function */
 
 export async function albumForPage(slug: string): Promise<Album | null> {
     const query = `*[_type == "album" && slug.current == $slug][0] {
@@ -181,6 +209,8 @@ export async function singleForPage(slug: string): Promise<Single | null> {
 
     return single ?? null;
 }
+
+/* This function is exclusively being used for thought pages */
 
 export async function thoughtForPage(slug: string): Promise<Thought | null> {
     const query = `*[_type == "thought" && slug.current == $slug][0] {

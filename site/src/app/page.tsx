@@ -23,8 +23,8 @@ export default async function Home() {
     // console.log(thoughts);
 
     return (
-        <main className="space-y-16 pb-16">
-            <Hero />
+        <main className="space-y-16 py-16">
+            {/* <Hero /> */}
 
             <PostSection
                 posts={albums}
