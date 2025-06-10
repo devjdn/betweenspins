@@ -3,7 +3,7 @@ import {
     getRelatedPosts,
     getReviewForPage,
 } from "@/app/sanity";
-import PostBody from "@/components/ui/post/post-body-text";
+import PTComponent from "@/components/ui/post/portable-text";
 import { Separator } from "@/components/ui/separator";
 import ReviewHeader from "@/components/ui/review/header";
 import { BaseMusicContent } from "@/types/sanity";
@@ -70,7 +70,7 @@ export default async function ReviewPage({
     return (
         <main className="flex flex-col lg:grid lg:grid-cols-[1fr_300px] gap-12 px-4 md:px-12 py-12 md:py-20">
             {/* The post */}
-            <article className="container mx-auto max-w-4xl space-y-8 flex-1">
+            <article className="max-w-3xl mx-auto space-y-8 flex-1">
                 <ReviewHeader
                     reviewType={musicType === "albums" ? "Album" : "Track"}
                     {...review}
@@ -78,7 +78,7 @@ export default async function ReviewPage({
 
                 <Separator orientation="horizontal" />
 
-                <PostBody content={review.body} />
+                <PTComponent content={review.body} />
 
                 <Separator orientation="horizontal" />
 

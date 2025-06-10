@@ -5,6 +5,7 @@ import { ListMusic, PencilLine, CalendarRange } from "lucide-react";
 import { Badge } from "../badge";
 import Rating from "./rating";
 import Image from "next/image";
+import Link from "next/link";
 
 type ReviewHeaderProps = Omit<
     BaseMusicContent,
@@ -63,9 +64,11 @@ export default function ReviewHeader({
                             <PencilLine className="w-4 h-4" />
                             <span>
                                 By{" "}
-                                <span className="font-medium text-foreground">
-                                    {author.name}
-                                </span>
+                                <Link href={`/authors/${author.slug.current}`}>
+                                    <span className="font-medium text-foreground">
+                                        {author.name}
+                                    </span>
+                                </Link>
                             </span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -75,7 +78,7 @@ export default function ReviewHeader({
                     </div>
                 </div>
             </div>
-            <div className="rounded-md bg-muted p-4 border">
+            <div className="rounded-md bg-muted p-4">
                 <p className="text-muted-foreground text-base">{description}</p>
             </div>
         </header>

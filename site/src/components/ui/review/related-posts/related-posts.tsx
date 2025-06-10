@@ -11,7 +11,7 @@ export default async function RelatedReviewPosts({
     posts: BaseMusicContent[];
 }) {
     return (
-        <aside className="space-y-4 px-4 lg:p-0 lg:h-fit lg:sticky lg:top-24">
+        <aside className="space-y-4 lg:px-4 lg:p-0 lg:h-fit lg:sticky lg:top-24">
             <h3 className="font-sans font-semibold capitalize text-xl tracking-tight leading-tight">
                 More {type === "albums" ? "Album" : "Track"} Reviews
             </h3>

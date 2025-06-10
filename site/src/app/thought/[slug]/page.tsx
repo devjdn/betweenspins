@@ -1,10 +1,9 @@
 import { getAllThoughtSlugs, thoughtForPage } from "@/app/sanity";
-import PostBody from "@/components/ui/post/post-body-text";
 import { Separator } from "@/components/ui/separator";
-import { Thought } from "@/types/sanity";
 import PostEngagement from "@/components/ui/post/post-engagement";
 import type { Metadata, ResolvingMetadata } from "next";
 import ThoughtHeader from "@/components/ui/thought/header";
+import PTComponent from "@/components/ui/post/portable-text";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -62,7 +61,7 @@ export default async function ThoughtPage({
 
             <Separator orientation="horizontal" />
 
-            <PostBody content={thought.body} />
+            <PTComponent content={thought.body} />
 
             <Separator orientation="horizontal" />
 

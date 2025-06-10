@@ -13,7 +13,15 @@ export interface Author {
     _id: string;
     _type: "author";
     name: string;
+    slug: {
+        _type: "slug";
+        current: string;
+    };
     image?: SanityImage;
+    bio?: string;
+    _createdAt: string;
+    _updatedAt?: string;
+    _rev?: string;
 }
 
 export interface Category {

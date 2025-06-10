@@ -2,6 +2,7 @@ import { formatDate } from "@/lib/formatDate";
 import { Thought } from "@/types/sanity";
 import { CalendarRange, ListMusic, PencilLine } from "lucide-react";
 import { Badge } from "../badge";
+import Link from "next/link";
 
 type ThoughtHeaderProps = Omit<Thought, "_id" | "slug" | "categories" | "body">;
 
@@ -17,9 +18,11 @@ export default function ThoughtHeader({ ...props }: ThoughtHeaderProps) {
                     <PencilLine className="w-4 h-4" />
                     <span>
                         By{" "}
-                        <span className="font-medium text-foreground">
-                            {props.author.name}
-                        </span>
+                        <Link href={`/authors/${props.author.slug.current}`}>
+                            <span className="font-medium text-foreground">
+                                {props.author.name}
+                            </span>
+                        </Link>
                     </span>
                 </div>
                 <div className="flex items-center gap-1">

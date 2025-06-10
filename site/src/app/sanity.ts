@@ -6,6 +6,7 @@ import {
     TracksWithMetadata,
     Thought,
     ThoughtWithMetadata,
+    Author,
 } from "@/types/sanity";
 import { createClient, type ClientConfig } from "@sanity/client";
 
@@ -107,7 +108,7 @@ export async function getSingles(): Promise<Tracks[]> {
     return singles;
 }
 
-/* For ISR for post pages */
+/* For ISR */
 
 export async function getAllReviewSlugs(): Promise<
     Array<{ type: string; slug: string }>
@@ -135,6 +136,18 @@ export async function getAllThoughtSlugs(): Promise<
 
     const thoughts = await sanity.fetch(query);
     return thoughts;
+}
+
+export async function getAllAuthorSlugs(): Promise<Array<{ slug: string }>> {
+    const query = `
+        *[_type == "author" && defined(slug.current)] {
+            "slug": slug.current,
+        }
+    `;
+
+    const authors = await sanity.fetch(query);
+
+    return authors;
 }
 
 /* For review pages */
@@ -200,6 +213,8 @@ export async function singleForPage(slug: string): Promise<Tracks | null> {
     return single ?? null;
 }
 
+/* For thought page */
+
 export async function thoughtForPage(slug: string): Promise<Thought | null> {
     const query = `*[_type == "thought" && slug.current == $slug][0] {
       ...,
@@ -209,4 +224,29 @@ export async function thoughtForPage(slug: string): Promise<Thought | null> {
     }`;
     const thought = await sanity.fetch(query, { slug });
     return thought ?? null;
+}
+
+/* For author page */
+
+export async function authorForPage(slug: string): Promise<Author | null> {
+    const query = `*[_type == "author" && slug.current == $slug][0] {
+      ...,
+      }
+    `;
+    const author = await sanity.fetch(query, { slug });
+    return author ?? null;
+}
+
+export async function getAuthorPostCount(slug: string): Promise<number> {
+    const query = `
+    {
+      "albums": count(*[_type == "albums" && author->slug.current == $slug]),
+      "tracks": count(*[_type == "tracks" && author->slug.current == $slug]),
+      "thoughts": count(*[_type == "thought" && author->slug.current == $slug])
+    }
+    `;
+
+    const counts: { albums: number; tracks: number; thoughts: number } =
+        await sanity.fetch(query, { slug });
+    return counts.albums + counts.tracks + counts.thoughts;
 }
