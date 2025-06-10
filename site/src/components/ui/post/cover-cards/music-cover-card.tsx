@@ -26,8 +26,8 @@ export default function MusicCoverCard({ post }: { post: Albums | Tracks }) {
             </div>
             <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="capitalize">
-                        {post._type === "albums" ? "Album" : "Track"}
+                    <Badge variant="secondary" className="capitalize">
+                        {post.genre}
                     </Badge>
                     <Badge variant="outline" className="text-xs font-medium">
                         <Calendar className="h-3 w-3 mr-1" />

@@ -32,6 +32,11 @@ export default defineType({
       title: 'Bio',
       type: 'string',
     }),
+    defineField({
+      name: 'favouriteArtist',
+      title: 'Favourite Artist',
+      type: 'string',
+    }),
   ],
   preview: {
     select: {

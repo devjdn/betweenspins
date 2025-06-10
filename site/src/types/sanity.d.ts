@@ -17,6 +17,7 @@ export interface Author {
         _type: "slug";
         current: string;
     };
+    favouriteArtist: string;
     image?: SanityImage;
     bio?: string;
     _createdAt: string;

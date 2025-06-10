@@ -21,19 +21,16 @@ export default async function AuthorHeader({ ...props }: Author) {
                 </div>
             )}
             <div className="space-y-2 flex flex-col items-center">
-                <Badge variant={"post"}>Author</Badge>
+                <Badge variant={"post"}>
+                    <span className="inline-flex gap-1">
+                        <BadgeCheck className="size-4" />
+                        <p>Author</p>
+                    </span>
+                </Badge>
 
                 <h1 className="font-serif text-center text-3xl md:text-4xl tracking-tight">
                     {props.name}
                 </h1>
-            </div>
-            <div className="rounded-md bg-muted p-4 text-center">
-                <h2 className="font-serif text-2xl mb-4">About</h2>
-                {props.bio && (
-                    <p className="text-muted-foreground text-base">
-                        {props.bio}
-                    </p>
-                )}
             </div>
         </header>
     );

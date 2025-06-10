@@ -7,7 +7,7 @@ import PostSection from "@/components/ui/post/post-section";
 export const revalidate = 60;
 
 export default async function Home() {
-    const [albums, singles, thoughts] = await Promise.all([
+    const [albums, tracks, thoughts] = await Promise.all([
         getFourLatestOfPostType("albums"),
         getFourLatestOfPostType("tracks"),
         getFourLatestOfPostType("thought"),
@@ -26,7 +26,7 @@ export default async function Home() {
             <Separator orientation="horizontal" />
 
             <PostSection
-                posts={singles as Tracks[]}
+                posts={tracks as Tracks[]}
                 title={"Latest Track Reviews"}
                 type={"tracks"}
             />

@@ -250,3 +250,27 @@ export async function getAuthorPostCount(slug: string): Promise<number> {
         await sanity.fetch(query, { slug });
     return counts.albums + counts.tracks + counts.thoughts;
 }
+
+export async function getAllAuthorPosts(
+    authorSlug: string
+): Promise<
+    Array<AlbumsWithMetadata | TracksWithMetadata | ThoughtWithMetadata>
+> {
+    const query = `
+        *[_type in ["albums", "tracks", "thought"] && author->slug.current == $authorSlug] 
+        | order(_createdAt desc) {
+            ...,
+            author->{
+                ...
+            }
+        }
+    `;
+
+    try {
+        const posts = await sanity.fetch(query, { authorSlug });
+        return posts;
+    } catch (error) {
+        console.error("Error fetching all author posts from Sanity:", error);
+        return [];
+    }
+}
