@@ -84,10 +84,15 @@ export async function getThoughtsInRange(start: number, end: number) {
 
 /* For home page */
 
-export async function getFourLatestOfPostType(
+export async function getLatestOfPostType(
     postType: string
 ): Promise<Albums[] | Tracks[] | Thought[]> {
-    const query = `*[_type == $postType] | order(_createdAt desc)[0...4]`;
+    const query = `*[_type == $postType] | order(_createdAt desc)[0...8] {
+        ...,
+      author->{
+        ...
+      }
+    }`;
     const posts = await sanity.fetch(query, { postType });
     return posts;
 }

@@ -17,7 +17,7 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
             <div className="flex items-center justify-between">
                 <h1 className="inline-block font-serif text-3xl">{title}</h1>
                 <Link
-                    href={`/${type}`}
+                    href={`/reviews/${type}`}
                     className="inline-flex gap-2 items-center text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                     <span>View all</span>
@@ -27,30 +27,40 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
             <div
                 className={clsx(
                     {
-                        "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8":
+                        "overflow-x-auto pb-4 scrollbar-hide":
                             type === "albums" || type === "tracks",
                     },
                     { "flex flex-col gap-4": type === "thought" }
                 )}
             >
-                {posts.map((post, i) => (
-                    <Link
-                        key={i}
-                        href={`${
-                            type !== "thought" ? "/reviews/" : ""
-                        }${type}/${post.slug.current}`}
-                        className={clsx("group block", {
-                            "transition-transform duration-200 hover:scale-[1.02]":
-                                type !== "thought",
-                        })}
-                    >
-                        {type === "albums" || type === "tracks" ? (
-                            <MusicCoverCard post={post as Albums | Tracks} />
-                        ) : (
-                            <ThoughtCoverCard post={post as Thought} />
-                        )}
-                    </Link>
-                ))}
+                <div
+                    className={clsx({
+                        "grid grid-flow-col auto-cols-[200px] sm:auto-cols-[220px] md:auto-cols-[240px] gap-4 md:gap-6 w-fit":
+                            type === "albums" || type === "tracks",
+                    })}
+                >
+                    {type === "albums" || type === "tracks"
+                        ? posts.map((post, i) => (
+                              <Link
+                                  key={i}
+                                  href={`/reviews/${type}/${post.slug.current}`}
+                                  className="group block"
+                              >
+                                  <MusicCoverCard
+                                      post={post as Albums | Tracks}
+                                  />
+                              </Link>
+                          ))
+                        : posts.map((post, i) => (
+                              <Link
+                                  key={i}
+                                  href={`/thought/${post.slug.current}`}
+                                  className="group block"
+                              >
+                                  <ThoughtCoverCard post={post as Thought} />
+                              </Link>
+                          ))}
+                </div>
             </div>
         </section>
     );

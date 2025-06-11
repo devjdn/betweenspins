@@ -8,14 +8,14 @@ import { Calendar, Music as MusicIcon } from "lucide-react";
 export default function MusicCoverCard({ post }: { post: Albums | Tracks }) {
     return (
         <article className="w-full group">
-            <div className="relative aspect-square overflow-hidden mb-4 bg-muted">
+            <div className="relative aspect-square mb-2 bg-muted rounded-sm overflow-hidden">
                 {post.mainImage ? (
                     <Image
                         src={urlForImage(post.mainImage)}
                         alt={post.title}
                         fill
                         priority
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover duration-300"
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center">
@@ -36,10 +36,10 @@ export default function MusicCoverCard({ post }: { post: Albums | Tracks }) {
                 </div>
 
                 <div>
-                    <h3 className="font-serif text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+                    <h3 className="font-serif text-xl leading-tight line-clamp-2 group-hover:text-primary transition-colors">
                         {post.title}
                     </h3>
-                    <p className="text-muted-foreground leading-tight text-base">
+                    <p className="text-muted-foreground leading-tight text-sm">
                         {post.artist}
                     </p>
                 </div>

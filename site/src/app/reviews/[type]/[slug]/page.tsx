@@ -60,7 +60,7 @@ export default async function ReviewPage({
 
     const [review, relatedPosts] = await Promise.all([
         getReviewForPage(musicType, slug),
-        getRelatedPosts(musicType, slug, 3),
+        getRelatedPosts(musicType, slug, 4),
     ]);
 
     if (review === null) {

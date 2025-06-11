@@ -8,7 +8,6 @@ import { Badge } from "../badge";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import { Calendar, Music } from "lucide-react";
-import { format } from "date-fns";
 import { formatDate } from "@/lib/formatDate";
 import clsx from "clsx";
 

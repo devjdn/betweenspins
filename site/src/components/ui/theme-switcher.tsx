@@ -5,11 +5,10 @@ import { useTheme } from "next-themes";
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuTrigger,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
 } from "./dropdown-menu";
 import { Laptop, MoonStar, Sun } from "lucide-react";
 
@@ -39,9 +38,11 @@ export default function ThemeSwitcher() {
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4" side="bottom" sideOffset={8}>
-                <DropdownMenuLabel>Theme</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                <DropdownMenuRadioGroup
+                    className="font-serif"
+                    value={theme}
+                    onValueChange={setTheme}
+                >
                     <DropdownMenuRadioItem value={"light"}>
                         Light
                     </DropdownMenuRadioItem>
