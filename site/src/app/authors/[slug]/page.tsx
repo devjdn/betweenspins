@@ -1,16 +1,17 @@
 import {
     authorForPage,
-    getAllAuthorPosts,
+    getAllAuthorReviews,
     getAllAuthorSlugs,
+    getAllAuthorThoughts,
     getAuthorPostCount,
 } from "@/app/sanity";
-import ArticlesFromAuthor from "@/components/ui/author/articles";
 import AuthorHeader from "@/components/ui/author/header";
-import PTComponent from "@/components/ui/post/portable-text";
+import MusicCoverCard from "@/components/ui/post/cover-cards/music-cover-card";
+import ThoughtCoverCard from "@/components/ui/post/cover-cards/thought-cover-card";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/formatDate";
-import { Divide } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
+import Link from "next/link";
 
 export async function generateStaticParams() {
     const authors = await getAllAuthorSlugs();
@@ -48,11 +49,13 @@ export default async function AuthorPage({
 }) {
     const { slug } = await params;
 
-    const [author, postCount, authorPosts] = await Promise.all([
-        authorForPage(slug),
-        getAuthorPostCount(slug),
-        getAllAuthorPosts(slug),
-    ]);
+    const [author, postCount, authorReviews, authorThoughts] =
+        await Promise.all([
+            authorForPage(slug),
+            getAuthorPostCount(slug),
+            getAllAuthorReviews(slug),
+            getAllAuthorThoughts(slug),
+        ]);
 
     if (!author) {
         return <h1>No author found.</h1>;
@@ -108,9 +111,40 @@ export default async function AuthorPage({
              */}
             <section className="space-y-8">
                 <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-center">
-                    Articles from {author.name}
+                    Reviews from {author.name}
                 </h2>
-                <ArticlesFromAuthor posts={authorPosts} />
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4">
+                    {authorReviews.map((post, i) => (
+                        <Link
+                            key={post._id}
+                            href={`/reviews/${post._type}/${post.slug.current}`}
+                            className="group"
+                        >
+                            <MusicCoverCard post={post} />
+                        </Link>
+                    ))}
+                </div>
+            </section>
+
+            <Separator orientation="horizontal" />
+
+            <section className="space-y-8">
+                <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-center">
+                    Thoughts from {author.name}
+                </h2>
+
+                <div className="flex flex-col md:grid md:grid-cols-2 gap-y-8 gap-x-4">
+                    {authorThoughts.map((post, i) => (
+                        <Link
+                            key={post._id}
+                            href={`/reviews/${post._type}/${post.slug.current}`}
+                            className="group"
+                        >
+                            <ThoughtCoverCard post={post} />
+                        </Link>
+                    ))}
+                </div>
             </section>
         </main>
     );

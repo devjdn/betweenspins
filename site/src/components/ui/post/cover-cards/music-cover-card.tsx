@@ -8,7 +8,7 @@ import { Calendar, Music as MusicIcon } from "lucide-react";
 export default function MusicCoverCard({ post }: { post: Albums | Tracks }) {
     return (
         <article className="w-full group">
-            <div className="relative aspect-square mb-2 bg-muted rounded-sm overflow-hidden">
+            <div className="relative aspect-square mb-2 bg-muted rounded-sm overflow-hidden group-hover:shadow-md transition-shadow duration-300">
                 {post.mainImage ? (
                     <Image
                         src={urlForImage(post.mainImage)}

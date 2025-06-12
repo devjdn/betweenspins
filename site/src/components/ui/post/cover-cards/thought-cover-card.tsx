@@ -1,7 +1,6 @@
 import type { Thought } from "@/types/sanity";
 import { formatDate } from "@/lib/formatDate";
 import { PencilLine, CalendarRange, ArrowRight } from "lucide-react";
-import { Badge } from "../../badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
 import { urlForImage } from "@/lib/sanity/image";
 
@@ -9,9 +8,9 @@ export default function ThoughtCoverCard({ post }: { post: Thought }) {
     /* Write code to get an excerpt from the post */
 
     return (
-        <article className="group relative bg-card border border-border rounded-lg p-6 transition-all duration-200 hover:shadow-md hover:border-primary/20 hover:bg-card/80">
+        <article className="group relative bg-card border border-border rounded-md p-6 transition-all duration-200 hover:shadow-md hover:border-primary/20 hover:bg-card/80">
             <header className="mb-3">
-                <h2 className="text-xl font-serif font-semibold leading-tight group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                <h2 className="text-xl font-serif tracking-tight leading-tight group-hover:text-primary transition-colors duration-200">
                     {post.title}
                 </h2>
             </header>

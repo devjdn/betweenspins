@@ -68,7 +68,7 @@ export default async function ReviewPage({
     }
 
     return (
-        <main className="flex flex-col lg:grid lg:grid-cols-[1fr_300px] gap-12 px-4 md:px-12 py-12 md:py-20">
+        <main className="container mx-auto flex flex-col lg:grid lg:grid-cols-[1fr_300px] gap-12 px-4 py-12 md:py-20">
             {/* The post */}
             <article className="max-w-3xl mx-auto space-y-8 flex-1">
                 <ReviewHeader

@@ -5,19 +5,27 @@ import ThoughtCoverCard from "./cover-cards/thought-cover-card";
 import { ArrowRight } from "lucide-react";
 import clsx from "clsx";
 
-type SectionTypes = {
-    posts: Albums[] | Tracks[] | Thought[];
-    title: string;
-    type: "albums" | "tracks" | "thought";
-};
+type SectionTypes =
+    | {
+          posts: Array<Albums | Tracks>;
+          title: string;
+          type: "reviews";
+      }
+    | {
+          posts: Thought[];
+          title: string;
+          type: "thought";
+      };
 
 export default function PostSection({ posts, title, type }: SectionTypes) {
     return (
-        <section className="container mx-auto px-4 space-y-8">
+        <section className="mx-auto px-4 space-y-4">
             <div className="flex items-center justify-between">
-                <h1 className="inline-block font-serif text-3xl">{title}</h1>
+                <h1 className="inline-block tracking-tight font-serif text-3xl">
+                    {title}
+                </h1>
                 <Link
-                    href={`/reviews/${type}`}
+                    href={`${type === "reviews" ? "/reviews" : "/thought"}`}
                     className="inline-flex gap-2 items-center text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                     <span>View all</span>
@@ -28,27 +36,31 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                 className={clsx(
                     {
                         "overflow-x-auto pb-4 scrollbar-hide":
-                            type === "albums" || type === "tracks",
+                            type === "reviews",
                     },
                     { "flex flex-col gap-4": type === "thought" }
                 )}
             >
                 <div
-                    className={clsx({
-                        "grid grid-flow-col auto-cols-[200px] sm:auto-cols-[220px] md:auto-cols-[240px] gap-4 md:gap-6 w-fit":
-                            type === "albums" || type === "tracks",
-                    })}
+                    className={clsx(
+                        {
+                            "grid grid-flow-col auto-cols-[200px] sm:auto-cols-[220px] md:auto-cols-[240px] gap-4 md:gap-6 w-fit":
+                                type === "reviews",
+                        },
+                        {
+                            "flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3":
+                                type === "thought",
+                        }
+                    )}
                 >
-                    {type === "albums" || type === "tracks"
+                    {type === "reviews"
                         ? posts.map((post, i) => (
                               <Link
                                   key={i}
-                                  href={`/reviews/${type}/${post.slug.current}`}
+                                  href={`/reviews/${post._type}/${post.slug.current}`}
                                   className="group block"
                               >
-                                  <MusicCoverCard
-                                      post={post as Albums | Tracks}
-                                  />
+                                  <MusicCoverCard post={post} />
                               </Link>
                           ))
                         : posts.map((post, i) => (
@@ -57,7 +69,7 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                                   href={`/thought/${post.slug.current}`}
                                   className="group block"
                               >
-                                  <ThoughtCoverCard post={post as Thought} />
+                                  <ThoughtCoverCard post={post} />
                               </Link>
                           ))}
                 </div>

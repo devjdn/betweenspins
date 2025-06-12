@@ -52,7 +52,7 @@ export async function thoughtPostCount() {
 export async function getReviewsInRange(start: number, end: number) {
     const posts: TracksWithMetadata[] | AlbumsWithMetadata[] =
         await sanity.fetch(
-            `*[_type in ["tracks", "albums"]]|order(_updatedAt desc)[${start}...${end}]{
+            `*[_type in ["tracks", "albums"]]|order(_updatedAt asc)[${start}...${end}]{
           "slug": slug.current,
           "_updatedAt": _updatedAt,
           "_type": _type
@@ -68,7 +68,7 @@ export async function getReviewsInRange(start: number, end: number) {
 
 export async function getThoughtsInRange(start: number, end: number) {
     const posts: ThoughtWithMetadata[] = await sanity.fetch(
-        `*[_type == "thought"]|order(_updatedAt desc)[${start}...${end}]{
+        `*[_type == "thought"]|order(_updatedAt asc)[${start}...${end}]{
               "slug": slug.current,
               "_updatedAt": _updatedAt,
               "_type": _type
@@ -84,31 +84,46 @@ export async function getThoughtsInRange(start: number, end: number) {
 
 /* For home page */
 
-export async function getLatestOfPostType(
-    postType: string
-): Promise<Albums[] | Tracks[] | Thought[]> {
-    const query = `*[_type == $postType] | order(_createdAt desc)[0...8] {
-        ...,
-      author->{
-        ...
-      }
-    }`;
-    const posts = await sanity.fetch(query, { postType });
-    return posts;
+export async function getAllReviews(): Promise<Array<Albums | Tracks>> {
+    const query = `
+        *[_type in ["albums", "tracks"]]|order(publishedAt desc)[0...9]{
+            ...,
+            author->{
+                ...
+            }
+        }
+    `;
+
+    const reviews = await sanity.fetch(query);
+    return reviews;
+}
+
+export async function getAllThoughts(): Promise<Array<Thought>> {
+    const query = `
+        *[_type == "thought"]|order(publishedAt desc)[0...9]{
+            ...,
+            author->{
+                ...
+            }
+        }
+    `;
+
+    const reviews = await sanity.fetch(query);
+    return reviews;
 }
 
 /* For bulk fetching a post type */
 
 export async function getAlbums(): Promise<Albums[]> {
     const albums = await sanity.fetch(
-        '*[_type == "albums"] | order(_createdAt desc)'
+        '*[_type == "albums"] | order(publishedAt desc)'
     );
     return albums;
 }
 
 export async function getSingles(): Promise<Tracks[]> {
     const singles = await sanity.fetch(
-        '*[_type == "tracks"] | order(_createdAt desc)'
+        '*[_type == "tracks"] | order(publishedAt desc)'
     );
     return singles;
 }
@@ -176,7 +191,7 @@ export async function getRelatedPosts(
 ): Promise<Array<BaseMusicContent | Thought>> {
     const query = `
     *[_type == $type && slug.current != $currentSlug] 
-    | order(_createdAt desc)[0...$limit] {
+    | order(publishedAt desc)[0...$limit] {
       ...
     }
   `;
@@ -256,14 +271,12 @@ export async function getAuthorPostCount(slug: string): Promise<number> {
     return counts.albums + counts.tracks + counts.thoughts;
 }
 
-export async function getAllAuthorPosts(
+export async function getAllAuthorReviews(
     authorSlug: string
-): Promise<
-    Array<AlbumsWithMetadata | TracksWithMetadata | ThoughtWithMetadata>
-> {
+): Promise<Array<AlbumsWithMetadata | TracksWithMetadata>> {
     const query = `
-        *[_type in ["albums", "tracks", "thought"] && author->slug.current == $authorSlug] 
-        | order(_createdAt desc) {
+        *[_type in ["albums", "tracks"] && author->slug.current == $authorSlug] 
+        | order(publishedAt desc) {
             ...,
             author->{
                 ...
@@ -272,10 +285,32 @@ export async function getAllAuthorPosts(
     `;
 
     try {
-        const posts = await sanity.fetch(query, { authorSlug });
-        return posts;
+        const reviews = await sanity.fetch(query, { authorSlug });
+        return reviews;
     } catch (error) {
-        console.error("Error fetching all author posts from Sanity:", error);
+        console.error("Error fetching all author reviews from Sanity:", error);
+        return [];
+    }
+}
+
+export async function getAllAuthorThoughts(
+    authorSlug: string
+): Promise<Array<ThoughtWithMetadata>> {
+    const query = `
+        *[_type == "thought" && author->slug.current == $authorSlug] 
+        | order(publishedAt desc) {
+            ...,
+            author->{
+                ...
+            }
+        }
+    `;
+
+    try {
+        const thoughts = await sanity.fetch(query, { authorSlug });
+        return thoughts;
+    } catch (error) {
+        console.error("Error fetching all author thoughts from Sanity:", error);
         return [];
     }
 }

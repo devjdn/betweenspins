@@ -1,32 +1,19 @@
-import { getLatestOfPostType } from "./sanity";
-import { Albums, Tracks } from "../types/sanity";
+import { getAllReviews, getAllThoughts } from "./sanity";
+import { Albums, Thought, Tracks } from "../types/sanity";
 import { Separator } from "@/components/ui/separator";
 import PostSection from "@/components/ui/post/post-section";
 
 export const revalidate = 60;
 
 export default async function Home() {
-    const [albums, tracks, thoughts] = await Promise.all([
-        getLatestOfPostType("albums"),
-        getLatestOfPostType("tracks"),
-        getLatestOfPostType("thought"),
+    const [thoughts, reviews] = await Promise.all([
+        getAllThoughts(),
+        getAllReviews(),
     ]);
 
     return (
-        <main className="space-y-16 py-16">
-            <PostSection
-                posts={albums as Albums[]}
-                title={"Latest Album Reviews"}
-                type={"albums"}
-            />
-
-            <Separator orientation="horizontal" />
-
-            <PostSection
-                posts={tracks as Tracks[]}
-                title={"Latest Track Reviews"}
-                type={"tracks"}
-            />
+        <main className="container mx-auto space-y-16 py-16">
+            <PostSection posts={reviews} title={"Reviews"} type={"reviews"} />
 
             <Separator orientation="horizontal" />
 
