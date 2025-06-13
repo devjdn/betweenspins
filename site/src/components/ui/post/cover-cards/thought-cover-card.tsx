@@ -1,6 +1,6 @@
 import type { Thought } from "@/types/sanity";
 import { formatDate } from "@/lib/formatDate";
-import { PencilLine, CalendarRange, ArrowRight } from "lucide-react";
+import { CalendarRange, ArrowRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
 import { urlForImage } from "@/lib/sanity/image";
 

@@ -50,7 +50,7 @@ export default function ReviewHeader({
                         <h1 className="font-serif text-3xl md:text-4xl tracking-tight">
                             {title}
                         </h1>
-                        <h2 className="text-xl md:text-2xl text-muted-foreground">
+                        <h2 className="text-xl md:text-2xl text-muted-foreground tracking-tight">
                             {artist}
                         </h2>
                     </div>

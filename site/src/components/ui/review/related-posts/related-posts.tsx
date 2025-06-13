@@ -1,19 +1,21 @@
 import { urlForImage } from "@/lib/sanity/image";
-import { BaseMusicContent } from "@/types/sanity";
+import { Review } from "@/types/sanity";
 import Link from "next/link";
 import { Separator } from "../../separator";
 
 export default async function RelatedReviewPosts({
-    type,
+    musicType,
     posts,
+    routeType,
 }: {
-    type: "albums" | "tracks";
-    posts: BaseMusicContent[];
+    musicType: "album" | "track";
+    routeType: "albums" | "tracks";
+    posts: Review[];
 }) {
     return (
         <aside className="space-y-4 lg:px-4 lg:p-0 lg:h-fit lg:sticky lg:top-24">
             <h3 className="font-serif capitalize text-xl tracking-tight leading-tight">
-                More {type === "albums" ? "Album" : "Track"} Reviews
+                More {musicType === "album" ? "Album" : "Track"} Reviews
             </h3>
             <Separator orientation="horizontal" />
             <div>
@@ -23,7 +25,7 @@ export default async function RelatedReviewPosts({
                             <div key={i} className="space-y-4">
                                 <Link
                                     className="block"
-                                    href={`/reviews/${type}/${p.slug.current}`}
+                                    href={`/reviews/${routeType}/${p.slug.current}`}
                                 >
                                     <div className="grid grid-cols-[80px_1fr] gap-3 items-center">
                                         <div>
@@ -58,7 +60,7 @@ export default async function RelatedReviewPosts({
                     )}
                 </ul>
             </div>
-            <Link href={`/reviews/${type}`}></Link>
+            <Link href={`/reviews/${routeType}`}></Link>
         </aside>
     );
 }

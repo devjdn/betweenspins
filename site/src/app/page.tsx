@@ -1,5 +1,5 @@
 import { getAllReviews, getAllThoughts } from "./sanity";
-import { Albums, Thought, Tracks } from "../types/sanity";
+import { Review } from "../types/sanity";
 import { Separator } from "@/components/ui/separator";
 import PostSection from "@/components/ui/post/post-section";
 

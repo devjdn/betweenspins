@@ -1,38 +1,45 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'tracks',
-  title: 'Tracks',
+  name: 'reviews',
+  title: 'Reviews',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'artist',
       title: 'Artist',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'releaseDate',
-      title: 'Release Date',
+      name: 'reviewType',
+      title: 'Review Type',
       type: 'string',
+      options: {
+        list: [
+          {title: 'Album', value: 'album'},
+          {title: 'Track', value: 'track'},
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'rating',
-      title: 'Rating',
-      type: 'number',
+      name: 'isClassic',
+      title: 'Classic Review',
+      type: 'boolean',
+      description: 'Only applicable to albums.',
+      initialValue: false,
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'string',
-    }),
-    defineField({
-      title: 'Genre',
       name: 'genre',
+      title: 'Genre',
       type: 'string',
       options: {
         list: [
@@ -73,36 +80,55 @@ export default defineType({
         source: 'title',
         maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: {type: 'author'},
+      to: [{type: 'author'}],
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
     }),
     defineField({
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Main Image',
       type: 'image',
       options: {
         hotspot: true,
       },
     }),
     defineField({
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-    }),
-    defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
     }),
+    defineField({
+      name: 'releaseDate',
+      title: 'Release Date',
+      type: 'string',
+    }),
+    defineField({
+      name: 'rating',
+      title: 'Rating',
+      type: 'number',
+      validation: (Rule) => Rule.min(0).max(100),
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'array',
+      of: [{type: 'block'}],
+    }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'artist',
+      media: 'mainImage',
+    },
+  },
 })

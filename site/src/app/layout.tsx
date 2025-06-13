@@ -16,7 +16,7 @@ const instrument = Instrument_Serif({
 
 const inter = Inter({
     subsets: ["latin"],
-    variable: "--font-inter",
+    variable: "--font-sans",
 });
 
 const dm_serif = DM_Serif_Text({

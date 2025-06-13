@@ -4,5 +4,6 @@ import thought from './thought'
 import author from './author'
 import albums from './albums'
 import tracks from './tracks'
+import reviews from './reviews'
 
-export const schemaTypes = [thought, author, category, blockContent, albums, tracks]
+export const schemaTypes = [reviews, thought, author, category, blockContent, albums, tracks]

@@ -51,14 +51,6 @@ export interface BaseMusicContent {
     releaseDate: string;
 }
 
-export interface Albums extends BaseMusicContent {
-    _type: "albums";
-}
-
-export interface Tracks extends BaseMusicContent {
-    _type: "tracks";
-}
-
 export interface Thought {
     _id: string;
     _type: "thought";
@@ -73,6 +65,28 @@ export interface Thought {
     publishedAt: string;
 }
 
+export interface Review {
+    _id: string;
+    _type: "reviews";
+    title: string;
+    artist: string;
+    genre: string;
+    reviewType: "album" | "track";
+    isClassic?: boolean;
+    slug: {
+        _type: "slug";
+        current: string;
+    };
+    author: Author;
+    description: string;
+    mainImage?: SanityImage;
+    categories?: Category[];
+    publishedAt: string;
+    body: PortableTextBlock[];
+    rating?: number;
+    releaseDate: string;
+}
+
 export interface SanityDocument {
     _id: string;
     _type: string;
@@ -85,3 +99,4 @@ export interface SanityDocument {
 export type AlbumsWithMetadata = Albums & SanityDocument;
 export type TracksWithMetadata = Tracks & SanityDocument;
 export type ThoughtWithMetadata = Thought & SanityDocument;
+export type ReviewWithMetadata = Review & SanityDocument;
