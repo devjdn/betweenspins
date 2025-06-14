@@ -109,7 +109,8 @@ export default function NotFound() {
                     {/* Fun Music Quote */}
                     <div className="pt-4">
                         <blockquote className="text-sm text-muted-foreground italic">
-                            "Music is the soundtrack of your life." <br />
+                            &quot;Music is the soundtrack of your life.&quot;{" "}
+                            <br />
                             <span className="text-xs">— Dick Clark</span>
                         </blockquote>
                     </div>

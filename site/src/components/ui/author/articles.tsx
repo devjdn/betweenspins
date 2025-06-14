@@ -3,15 +3,9 @@ import {
     ThoughtWithMetadata,
     TracksWithMetadata,
 } from "@/types/sanity";
+import ThoughtCard from "../cards/thought-card";
+import ReviewCard from "../cards/review-card";
 import Link from "next/link";
-import { Badge } from "../badge";
-import { urlForImage } from "@/lib/sanity/image";
-import Image from "next/image";
-import { Calendar, Music } from "lucide-react";
-import { formatDate } from "@/lib/formatDate";
-import clsx from "clsx";
-import MusicCoverCard from "../post/cover-cards/music-cover-card";
-import ThoughtCoverCard from "../post/cover-cards/thought-cover-card";
 
 export default async function ArticlesFromAuthor({
     posts,
@@ -30,10 +24,10 @@ export default async function ArticlesFromAuthor({
                 >
                     {post._type !== "thought" ? (
                         // Music content (Albums or Tracks)
-                        <MusicCoverCard post={post} />
+                        <ReviewCard post={post} />
                     ) : (
                         // Thought content
-                        <ThoughtCoverCard post={post} />
+                        <ThoughtCard post={post} />
                     )}
                 </Link>
             ))}
