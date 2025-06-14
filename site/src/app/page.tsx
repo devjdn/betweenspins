@@ -1,7 +1,7 @@
 import { getAllReviews, getAllThoughts } from "./sanity";
-import { Review } from "../types/sanity";
 import { Separator } from "@/components/ui/separator";
-import PostSection from "@/components/ui/post/post-section";
+import PostSection from "@/components/ui/home/post-section";
+import FeaturedReview from "@/components/ui/home/featured-review";
 
 export const revalidate = 60;
 
@@ -11,17 +11,35 @@ export default async function Home() {
         getAllReviews(),
     ]);
 
+    const mostRecentAlbumReview = reviews.find((r) => r.reviewType === "album");
+
+    const remainingReviews = reviews.filter(
+        (r) => r._id !== mostRecentAlbumReview?._id
+    );
+
     return (
-        <main className="container mx-auto space-y-16 py-16">
-            <PostSection posts={reviews} title={"Reviews"} type={"reviews"} />
+        <main className="space-y-16">
+            {mostRecentAlbumReview ? (
+                <FeaturedReview review={mostRecentAlbumReview} />
+            ) : (
+                <FeaturedReview review={reviews[0]} />
+            )}
 
-            <Separator orientation="horizontal" />
+            <section className="container mx-auto space-y-16 pb-16">
+                <PostSection
+                    posts={remainingReviews}
+                    title={"Reviews"}
+                    type={"reviews"}
+                />
 
-            <PostSection
-                posts={thoughts}
-                title={"Latest Thoughts"}
-                type={"thought"}
-            />
+                <Separator orientation="horizontal" />
+
+                <PostSection
+                    posts={thoughts}
+                    title={"Latest Thoughts"}
+                    type={"thought"}
+                />
+            </section>
         </main>
     );
 }

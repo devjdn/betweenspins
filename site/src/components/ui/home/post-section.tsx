@@ -1,13 +1,13 @@
-import { Albums, Tracks, Thought } from "@/types/sanity";
+import { Review, Thought } from "@/types/sanity";
 import Link from "next/link";
-import MusicCoverCard from "./cover-cards/music-cover-card";
-import ThoughtCoverCard from "./cover-cards/thought-cover-card";
+import ReviewCard from "../cards/review-card";
+import ThoughtCard from "../cards/thought-card";
 import { ArrowRight } from "lucide-react";
 import clsx from "clsx";
 
 type SectionTypes =
     | {
-          posts: Array<Albums | Tracks>;
+          posts: Array<Review>;
           title: string;
           type: "reviews";
       }
@@ -19,7 +19,7 @@ type SectionTypes =
 
 export default function PostSection({ posts, title, type }: SectionTypes) {
     return (
-        <section className="container mx-auto px-4 space-y-4">
+        <section className="mx-auto px-4 space-y-4">
             <div className="flex items-center justify-between">
                 <h1 className="inline-block tracking-tight font-serif text-3xl">
                     {title}
@@ -57,10 +57,14 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                         ? posts.map((post, i) => (
                               <Link
                                   key={i}
-                                  href={`/reviews/${post._type}/${post.slug.current}`}
+                                  href={`/reviews/${
+                                      post.reviewType === "album"
+                                          ? "albums"
+                                          : "tracks"
+                                  }/${post.slug.current}`}
                                   className="group block"
                               >
-                                  <MusicCoverCard post={post} />
+                                  <ReviewCard post={post} />
                               </Link>
                           ))
                         : posts.map((post, i) => (
@@ -69,7 +73,7 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                                   href={`/thought/${post.slug.current}`}
                                   className="group block"
                               >
-                                  <ThoughtCoverCard post={post} />
+                                  <ThoughtCard post={post} />
                               </Link>
                           ))}
                 </div>

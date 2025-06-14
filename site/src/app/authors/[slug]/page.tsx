@@ -6,8 +6,8 @@ import {
     getAuthorPostCount,
 } from "@/app/sanity";
 import AuthorHeader from "@/components/ui/author/header";
-import MusicCoverCard from "@/components/ui/post/cover-cards/music-cover-card";
-import ThoughtCoverCard from "@/components/ui/post/cover-cards/thought-cover-card";
+import ThoughtCard from "@/components/ui/cards/thought-card";
+import ReviewCard from "@/components/ui/cards/review-card";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/formatDate";
 import { Metadata, ResolvingMetadata } from "next";
@@ -121,7 +121,7 @@ export default async function AuthorPage({
                             href={`/reviews/${post._type}/${post.slug.current}`}
                             className="group"
                         >
-                            <MusicCoverCard post={post} />
+                            <ReviewCard post={post} />
                         </Link>
                     ))}
                 </div>
@@ -141,7 +141,7 @@ export default async function AuthorPage({
                             href={`/reviews/${post._type}/${post.slug.current}`}
                             className="group"
                         >
-                            <ThoughtCoverCard post={post} />
+                            <ThoughtCard post={post} />
                         </Link>
                     ))}
                 </div>

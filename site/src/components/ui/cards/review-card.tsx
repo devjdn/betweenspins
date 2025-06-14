@@ -2,10 +2,10 @@ import { formatDate } from "@/lib/formatDate";
 import { urlForImage } from "@/lib/sanity/image";
 import { Review } from "@/types/sanity";
 import Image from "next/image";
-import { Badge } from "../../badge";
-import { Calendar, CalendarRange, Music as MusicIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { CalendarRange, Music as MusicIcon } from "lucide-react";
 
-export default function MusicCoverCard({ post }: { post: Review }) {
+export default function ReviewCard({ post }: { post: Review }) {
     return (
         <article className="w-full group">
             <div className="relative aspect-square mb-2 bg-muted rounded-sm overflow-hidden group-hover:shadow-md transition-shadow duration-300">
@@ -23,7 +23,7 @@ export default function MusicCoverCard({ post }: { post: Review }) {
                         <MusicIcon className="h-12 w-12 text-muted-foreground" />
                     </div>
                 )}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
             </div>
             <div className="space-y-2">
                 <div className="line-clamp-2">

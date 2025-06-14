@@ -210,7 +210,7 @@ export async function getAllAuthorReviews(
     authorSlug: string
 ): Promise<Array<ReviewWithMetadata>> {
     const query = `
-        *[_type in ["albums", "tracks"] && author->slug.current == $authorSlug] 
+        *[_type == "reviews" && author->slug.current == $authorSlug] 
         | order(publishedAt desc) {
             ...,
             author->{

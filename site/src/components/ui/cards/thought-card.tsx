@@ -1,10 +1,10 @@
 import type { Thought } from "@/types/sanity";
 import { formatDate } from "@/lib/formatDate";
 import { CalendarRange, ArrowRight } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { urlForImage } from "@/lib/sanity/image";
 
-export default function ThoughtCoverCard({ post }: { post: Thought }) {
+export default function ThoughtCard({ post }: { post: Thought }) {
     /* Write code to get an excerpt from the post */
 
     return (
