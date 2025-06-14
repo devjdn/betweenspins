@@ -20,6 +20,9 @@ importers:
       '@portabletext/types':
         specifier: ^2.0.13
         version: 2.0.13
+      '@radix-ui/react-tooltip':
+        specifier: ^1.2.7
+        version: 1.2.7(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@sanity/client':
         specifier: ^7.5.0
         version: 7.5.0

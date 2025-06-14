@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/formatDate";
 import { urlForImage } from "@/lib/sanity/image";
-import { BaseMusicContent } from "@/types/sanity";
+import { Review } from "@/types/sanity";
 import { ListMusic, PencilLine, CalendarRange } from "lucide-react";
 import { Badge } from "../badge";
 import Rating from "./rating";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type ReviewHeaderProps = Omit<
-    BaseMusicContent,
+    Review,
     "_id" | "slug" | "categories" | "body"
 > & {
     reviewType: string;
@@ -25,6 +25,7 @@ export default function ReviewHeader({
     description,
     mainImage,
     reviewType,
+    isClassic,
 }: ReviewHeaderProps) {
     return (
         <header className="flex flex-col gap-8">
@@ -54,7 +55,12 @@ export default function ReviewHeader({
                             {artist}
                         </h2>
                     </div>
-                    <Badge variant={"default"}>{genre}</Badge>
+                    <div className="flex flex-row flex-wrap gap-2">
+                        {isClassic && (
+                            <Badge variant={"classic"}>Classic</Badge>
+                        )}
+                        <Badge variant={"default"}>{genre}</Badge>
+                    </div>
                     <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-2 sm:gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                             <ListMusic className="w-4 h-4" />

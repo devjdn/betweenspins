@@ -7,9 +7,9 @@ import PTComponent from "@/components/ui/post/portable-text";
 import { Separator } from "@/components/ui/separator";
 import ReviewHeader from "@/components/ui/review/header";
 import { BaseMusicContent, Review } from "@/types/sanity";
-import PostEngagement from "@/components/ui/post/post-engagement";
 import type { Metadata, ResolvingMetadata } from "next";
 import RelatedReviewPosts from "@/components/ui/review/related-posts/related-posts";
+import LikeBtn from "@/components/ui/post/like-btn";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -79,7 +79,7 @@ export default async function ReviewPage({
 
                 <Separator orientation="horizontal" />
 
-                <PostEngagement slug={review.slug.current} comment_count={0} />
+                <LikeBtn slug={review.slug.current} />
             </article>
 
             {/* Other posts of the same type */}

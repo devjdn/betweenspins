@@ -11,6 +11,8 @@ export default async function FeaturedReview({ review }: { review: Review }) {
         ? urlForImage(review.mainImage)
         : null;
 
+    const rating = review.rating;
+
     return (
         <section className="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden">
             {/* Background Image */}
@@ -46,33 +48,16 @@ export default async function FeaturedReview({ review }: { review: Review }) {
                                 <div className="absolute -top-3 -right-3">
                                     <Badge className="bg-black text-white px-3 py-1 text-lg font-bold shadow-lg">
                                         <Star className="h-4 w-4 mr-1 fill-current" />
-                                        {review.rating}
+                                        {rating === 0 || rating === 100
+                                            ? rating / 10
+                                            : (rating / 10).toFixed(1)}
                                     </Badge>
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    {/* Text Content */}
                     <div className="w-full md:w-3/5 lg:w-2/3 text-center md:text-left space-y-6">
-                        {/* Badges */}
-                        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                            {review.isClassic && (
-                                <Badge
-                                    variant="outline"
-                                    className="text-xs font-serif border-yellow-400 text-yellow-400"
-                                >
-                                    Classic
-                                </Badge>
-                            )}
-                            <Badge className="text-xs capitalize bg-black text-white">
-                                Featured {review.reviewType} Review
-                            </Badge>
-                            <Badge className="text-xs capitalize bg-black text-white">
-                                {review.genre}
-                            </Badge>
-                        </div>
-
                         {/* Title and Artist */}
                         <div className="">
                             <h1 className="text-4xl xl:text-5xl font-serif text-white tracking-tight leading-tight">
@@ -87,6 +72,18 @@ export default async function FeaturedReview({ review }: { review: Review }) {
                         <p className="text-white/80 max-w-2xl text-sm leading-relaxed">
                             {review.description}
                         </p>
+
+                        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                            {review.isClassic && (
+                                <Badge variant="classic">Classic</Badge>
+                            )}
+                            <Badge className="text-xs capitalize bg-black text-white">
+                                Featured {review.reviewType} Review
+                            </Badge>
+                            <Badge className="text-xs capitalize bg-black text-white">
+                                {review.genre}
+                            </Badge>
+                        </div>
 
                         {/* Metadata */}
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start text-white/70 text-sm">

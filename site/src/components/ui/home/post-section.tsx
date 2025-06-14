@@ -19,7 +19,7 @@ type SectionTypes =
 
 export default function PostSection({ posts, title, type }: SectionTypes) {
     return (
-        <section className="mx-auto px-4 space-y-4">
+        <section className="container mx-auto px-4 space-y-4">
             <div className="flex items-center justify-between">
                 <h1 className="inline-block tracking-tight font-serif text-3xl">
                     {title}

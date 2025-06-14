@@ -83,7 +83,7 @@ export interface Review {
     categories?: Category[];
     publishedAt: string;
     body: PortableTextBlock[];
-    rating?: number;
+    rating: number;
     releaseDate: string;
 }
 

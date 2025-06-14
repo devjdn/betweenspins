@@ -1,9 +1,9 @@
 import { getAllThoughtSlugs, thoughtForPage } from "@/app/sanity";
 import { Separator } from "@/components/ui/separator";
-import PostEngagement from "@/components/ui/post/post-engagement";
 import type { Metadata, ResolvingMetadata } from "next";
 import ThoughtHeader from "@/components/ui/thought/header";
 import PTComponent from "@/components/ui/post/portable-text";
+import LikeBtn from "@/components/ui/post/like-btn";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -65,7 +65,7 @@ export default async function ThoughtPage({
 
             <Separator orientation="horizontal" />
 
-            <PostEngagement slug={thought.slug.current} comment_count={0} />
+            <LikeBtn slug={thought.slug.current} />
         </article>
     );
 }

@@ -1,10 +1,10 @@
 "use client";
 
 import { Heart } from "lucide-react";
-import { Button } from "../../button";
+import { Button } from "../button";
 import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
-import { api } from "../../../../../convex/_generated/api";
+import { api } from "../../../../convex/_generated/api";
 import * as React from "react";
 import clsx from "clsx";
 
