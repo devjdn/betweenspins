@@ -4,6 +4,7 @@ import { BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import PTComponent from "../post/portable-text";
 import { Badge } from "../badge";
+import Link from "next/link";
 
 export default async function AuthorHeader({ ...props }: Author) {
     return (
@@ -32,6 +33,23 @@ export default async function AuthorHeader({ ...props }: Author) {
                     {props.name}
                 </h1>
             </div>
+
+            {props.links && props.links.length > 0 && (
+                <div className="text-left flex flex-row flex-wrap gap-4">
+                    {props.links.map((l, i) => (
+                        <Link
+                            key={i}
+                            href={l.url}
+                            target="_blank"
+                            className="group"
+                        >
+                            <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200 line-clamp-1">
+                                {l.platform}
+                            </p>
+                        </Link>
+                    ))}
+                </div>
+            )}
         </header>
     );
 }

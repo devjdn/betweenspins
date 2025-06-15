@@ -21,7 +21,11 @@ const socialLinks: LinkType[] = [
     },
 ];
 
-const siteLinks: LinkType[] = [
+export const siteLinks: LinkType[] = [
+    {
+        name: "Reviews",
+        href: "/reviews",
+    },
     {
         name: "Album Reviews",
         href: "/reviews/albums",
@@ -37,10 +41,6 @@ const siteLinks: LinkType[] = [
     {
         name: "Authors",
         href: "/authors",
-    },
-    {
-        name: "Reviews",
-        href: "/reviews",
     },
 ];
 

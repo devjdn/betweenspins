@@ -66,7 +66,10 @@ export async function getAllReviewSlugs(): Promise<
     const query = `
         *[_type == "reviews" && defined(slug.current)] {
             "slug": slug.current,
-            "type": _type
+            "type": select(
+                reviewType == "album" => "albums",
+                reviewType == "track" => "tracks"
+            )
         }
     `;
 

@@ -37,6 +37,34 @@ export default defineType({
       title: 'Favourite Artist',
       type: 'string',
     }),
+    defineField({
+      name: 'links',
+      title: 'Links',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'platform',
+              title: 'Platform',
+              type: 'string',
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'url',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'platform',
+              subtitle: 'url',
+            },
+          },
+        },
+      ],
+    }),
   ],
   preview: {
     select: {

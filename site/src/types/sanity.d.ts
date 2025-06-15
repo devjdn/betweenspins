@@ -20,6 +20,10 @@ export interface Author {
     favouriteArtist: string;
     image?: SanityImage;
     bio?: string;
+    links?: Array<{
+        platform: string;
+        url: string;
+    }>;
     _createdAt: string;
     _updatedAt?: string;
     _rev?: string;
