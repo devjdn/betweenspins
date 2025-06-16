@@ -105,7 +105,7 @@ export default async function FeaturedReview({ review }: { review: Review }) {
                             className="bg-black text-white group hover:bg-neutral-950 transition-colors duration-200"
                         >
                             <Link
-                                href={`/reviews/${review.reviewType}s/${review.slug.current}`}
+                                href={`/reviews/${review.reviewType}/${review.slug.current}`}
                             >
                                 <p>Read Full Review</p>
                                 <ArrowRight className="ml-2 h-4 w-4" />

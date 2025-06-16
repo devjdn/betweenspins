@@ -6,10 +6,11 @@ import {
 import PTComponent from "@/components/ui/post/portable-text";
 import { Separator } from "@/components/ui/separator";
 import ReviewHeader from "@/components/ui/review/header";
-import { BaseMusicContent, Review } from "@/types/sanity";
 import type { Metadata, ResolvingMetadata } from "next";
 import RelatedReviewPosts from "@/components/ui/review/related-posts/related-posts";
 import LikeBtn from "@/components/ui/post/like-btn";
+import { Review } from "@/types/sanity";
+import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -48,7 +49,7 @@ export async function generateMetadata(
 export default async function ReviewPage({
     params,
 }: {
-    params: Promise<{ type: "albums" | "tracks"; slug: string }>;
+    params: Promise<{ type: Review["reviewType"]; slug: string }>;
 }) {
     const { type, slug } = await params;
 
@@ -56,16 +57,16 @@ export default async function ReviewPage({
         return <h1>Invalid review type.</h1>;
     }
 
-    const musicType = type === "albums" ? "album" : "track";
-
     const [review, relatedPosts] = await Promise.all([
         getReviewForPage(slug),
-        getRelatedReviews(slug, musicType, 4),
+        getRelatedReviews(slug, type, 4),
     ]);
 
-    if (review === null) {
-        return <h1>No {musicType} review found.</h1>;
+    if (!review) {
+        notFound();
     }
+
+    console.log(review.reviewType);
 
     return (
         <main className="container mx-auto flex flex-col lg:grid lg:grid-cols-[1fr_300px] gap-12 px-4 py-12 md:py-20">
@@ -83,11 +84,7 @@ export default async function ReviewPage({
             </article>
 
             {/* Other posts of the same type */}
-            <RelatedReviewPosts
-                musicType={musicType}
-                routeType={type}
-                posts={relatedPosts}
-            />
+            <RelatedReviewPosts reviewType={type} posts={relatedPosts} />
         </main>
     );
 }

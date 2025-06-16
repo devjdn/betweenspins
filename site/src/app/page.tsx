@@ -11,7 +11,9 @@ export default async function Home() {
         getAllReviews(),
     ]);
 
-    const mostRecentAlbumReview = reviews.find((r) => r.reviewType === "album");
+    const mostRecentAlbumReview = reviews.find(
+        (r) => r.reviewType === "albums"
+    );
 
     const remainingReviews = reviews.filter(
         (r) => r._id !== mostRecentAlbumReview?._id

@@ -18,14 +18,10 @@ export default function ReviewCard({ post }: { post: Review }) {
                 <div className="relative aspect-square mb-2 bg-muted rounded-sm overflow-hidden group-hover:shadow-md transition-shadow duration-300">
                     {post.mainImage ? (
                         <Image
-                            src={
-                                urlForImage(post.mainImage) ||
-                                "/placeholder.svg"
-                            }
+                            src={urlForImage(post.mainImage)}
                             alt={post.title}
                             width={400}
                             height={400}
-                            priority
                             className="object-cover duration-300"
                         />
                     ) : (
@@ -54,7 +50,7 @@ export default function ReviewCard({ post }: { post: Review }) {
                 </div>
                 <div className="space-y-2">
                     <div className="line-clamp-2">
-                        <h3 className="font-serif text-xl leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+                        <h3 className="font-serif text-xl tracking-tight leading-tight line-clamp-2 group-hover:text-primary transition-colors">
                             {post.title}
                         </h3>
                         <p className="text-muted-foreground leading-tight text-sm">

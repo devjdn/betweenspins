@@ -33,7 +33,7 @@ export default function NotFound() {
                         <h2 className="text-2xl md:text-3xl font-serif">
                             Page Not Found
                         </h2>
-                        <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                        <p className="text-muted-foreground text-lg tracking-tight max-w-md mx-auto">
                             The page you&apos;re looking for doesn&apos;t seem
                             to exist. Feel free to explore some of the provided
                             options below.
@@ -105,23 +105,7 @@ export default function NotFound() {
                             </Link>
                         </div>
                     </div>
-
-                    {/* Fun Music Quote */}
-                    <div className="pt-4">
-                        <blockquote className="text-sm text-muted-foreground italic">
-                            &quot;Music is the soundtrack of your life.&quot;{" "}
-                            <br />
-                            <span className="text-xs">— Dick Clark</span>
-                        </blockquote>
-                    </div>
                 </div>
-            </div>
-
-            {/* Background Pattern */}
-            <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-muted-foreground/10 rounded-full animate-pulse" />
-                <div className="absolute top-3/4 right-1/4 w-24 h-24 border border-muted-foreground/10 rounded-full animate-pulse delay-1000" />
-                <div className="absolute bottom-1/4 left-1/3 w-16 h-16 border border-muted-foreground/10 rounded-full animate-pulse delay-500" />
             </div>
         </div>
     );

@@ -46,6 +46,27 @@ export async function getReviewsInRange(start: number, end: number) {
     }));
 }
 
+export async function getAllFromReviewType(
+    type: Review["reviewType"]
+): Promise<Array<Review>> {
+    const query = `*[_type == "reviews" && reviewType == $type]|order(publishedAt desc) {
+        ...
+    }`;
+    const reviews = await sanity.fetch(query, { type });
+    return reviews;
+}
+
+export async function getAllClassicReviews(): Promise<Array<Review>> {
+    const query = `*[_type == "reviews" && isClassic == true]|order(publishedAt desc) {
+        ...,
+        author->{
+            ...
+        }
+    }`;
+    const reviews = await sanity.fetch(query);
+    return reviews;
+}
+
 export async function getAllReviews(): Promise<Array<Review>> {
     const query = `
         *[_type == "reviews"]|order(publishedAt desc)[0...9]{
@@ -66,10 +87,7 @@ export async function getAllReviewSlugs(): Promise<
     const query = `
         *[_type == "reviews" && defined(slug.current)] {
             "slug": slug.current,
-            "type": select(
-                reviewType == "album" => "albums",
-                reviewType == "track" => "tracks"
-            )
+            "type": reviewType
         }
     `;
 
@@ -88,25 +106,9 @@ export async function getReviewForPage(slug: string): Promise<Review | null> {
     return review ?? null;
 }
 
-export async function getReviewsByType(
-    type: "album" | "track"
-): Promise<Array<Review>> {
-    const query = `
-        *[_type == "reviews" && reviewType == $type]|order(publishedAt desc){
-            ...,
-            author->{
-                ...
-            }
-        }
-    `;
-
-    const reviews = await sanity.fetch(query, { type });
-    return reviews;
-}
-
 export async function getRelatedReviews(
     currentSlug: string,
-    reviewType: "album" | "track",
+    reviewType: "albums" | "tracks",
     limit: number = 3
 ): Promise<Array<Review>> {
     const query = `
@@ -186,6 +188,14 @@ export async function getAllAuthorSlugs(): Promise<Array<{ slug: string }>> {
     return authors;
 }
 
+export async function getAllAuthors(): Promise<Array<Author>> {
+    const query = `*[_type == "author"] {
+        ...
+    }`;
+    const authors = await sanity.fetch(query);
+    return authors;
+}
+
 export async function authorForPage(slug: string): Promise<Author | null> {
     const query = `*[_type == "author" && slug.current == $slug][0] {
       ...,
@@ -234,9 +244,7 @@ export async function getAllAuthorReviews(
 export async function getAllAuthorThoughts(
     authorSlug: string
 ): Promise<Array<ThoughtWithMetadata>> {
-    const query = `
-        *[_type == "thought" && author->slug.current == $authorSlug] 
-        | order(publishedAt desc) {
+    const query = `*[_type == "thought" && author->slug.current == $authorSlug] | order(publishedAt desc) {
             ...,
             author->{
                 ...

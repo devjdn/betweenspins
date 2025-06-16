@@ -57,11 +57,7 @@ export default function PostSection({ posts, title, type }: SectionTypes) {
                         ? posts.map((post, i) => (
                               <Link
                                   key={i}
-                                  href={`/reviews/${
-                                      post.reviewType === "album"
-                                          ? "albums"
-                                          : "tracks"
-                                  }/${post.slug.current}`}
+                                  href={`/reviews/${post.reviewType}/${post.slug.current}`}
                                   className="group block"
                               >
                                   <ReviewCard post={post} />

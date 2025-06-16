@@ -8,9 +8,7 @@ import {
     SheetClose,
 } from "../sheet";
 import { Menu } from "lucide-react";
-import { Button } from "../button";
 import Link from "next/link";
-import ThemeSwitcher from "../theme-switcher";
 import Logo from "@/components/logo";
 import { VisuallyHidden } from "radix-ui";
 

@@ -36,25 +36,6 @@ export interface Category {
     description?: string;
 }
 
-export interface BaseMusicContent {
-    _id: string;
-    title: string;
-    artist: string;
-    genre: string;
-    slug: {
-        _type: "slug";
-        current: string;
-    };
-    author: Author;
-    description: string;
-    mainImage?: SanityImage;
-    categories?: Category[];
-    publishedAt: string;
-    body: PortableTextBlock[];
-    rating?: number;
-    releaseDate: string;
-}
-
 export interface Thought {
     _id: string;
     _type: "thought";
@@ -75,7 +56,7 @@ export interface Review {
     title: string;
     artist: string;
     genre: string;
-    reviewType: "album" | "track";
+    reviewType: "albums" | "tracks";
     isClassic?: boolean;
     slug: {
         _type: "slug";
@@ -100,7 +81,5 @@ export interface SanityDocument {
 }
 
 // Extend the base types with SanityDocument fields
-export type AlbumsWithMetadata = Albums & SanityDocument;
-export type TracksWithMetadata = Tracks & SanityDocument;
 export type ThoughtWithMetadata = Thought & SanityDocument;
 export type ReviewWithMetadata = Review & SanityDocument;

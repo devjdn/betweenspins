@@ -27,14 +27,6 @@ export const siteLinks: LinkType[] = [
         href: "/reviews",
     },
     {
-        name: "Album Reviews",
-        href: "/reviews/albums",
-    },
-    {
-        name: "Track Reviews",
-        href: "/reviews/tracks",
-    },
-    {
         name: "Thoughts",
         href: "/thought",
     },

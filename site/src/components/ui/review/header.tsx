@@ -45,7 +45,7 @@ export default function ReviewHeader({
                 )}
                 <div className="w-full md:w-2/3 space-y-4">
                     <Badge className="mx-auto" variant={"post"}>
-                        {reviewType}
+                        {reviewType === "albums" ? "Album" : "Track"}
                     </Badge>
                     <div>
                         <h1 className="font-serif text-3xl md:text-4xl tracking-tight">
@@ -54,12 +54,6 @@ export default function ReviewHeader({
                         <h2 className="text-xl md:text-2xl text-muted-foreground tracking-tight">
                             {artist}
                         </h2>
-                    </div>
-                    <div className="flex flex-row flex-wrap gap-2">
-                        {isClassic && (
-                            <Badge variant={"classic"}>Classic</Badge>
-                        )}
-                        <Badge variant={"default"}>{genre}</Badge>
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-2 sm:gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
@@ -82,10 +76,16 @@ export default function ReviewHeader({
                             <span>Published on {formatDate(publishedAt)}</span>
                         </div>
                     </div>
+                    <div className="flex flex-row flex-wrap gap-2">
+                        {isClassic && (
+                            <Badge variant={"classic"}>Classic</Badge>
+                        )}
+                        <Badge variant={"default"}>{genre}</Badge>
+                    </div>
                 </div>
             </div>
             <div className="rounded-md bg-muted p-4">
-                <p className="text-muted-foreground text-base">{description}</p>
+                <p className="text-muted-foreground text-sm">{description}</p>
             </div>
         </header>
     );

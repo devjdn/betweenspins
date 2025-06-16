@@ -23,8 +23,8 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Album', value: 'album'},
-          {title: 'Track', value: 'track'},
+          {title: 'Album', value: 'albums'},
+          {title: 'Track', value: 'tracks'},
         ],
         layout: 'radio',
       },
