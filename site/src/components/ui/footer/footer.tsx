@@ -40,7 +40,7 @@ export default function Footer() {
     return (
         <footer className="px-6 py-10 border-t border-t-border bg-primary dark:bg-black">
             <div className="container mx-auto max-w-7xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* Logo and tagline */}
                     <div className="flex flex-col gap-4">
                         <Logo />
@@ -89,26 +89,10 @@ export default function Footer() {
                             ))}
                         </ul>
                     </div>
-
-                    {/* Newsletter signup placeholder */}
-                    <div>
-                        <h3 className="font-serif text-lg text-white mb-4">
-                            Stay Updated
-                        </h3>
-                        <p className="text-sm text-muted-foreground mb-2">
-                            Subscribe for the latest reviews and articles.
-                        </p>
-                        <Link
-                            href="#"
-                            className="text-sm font-medium text-white hover:underline"
-                        >
-                            Subscribe →
-                        </Link>
-                    </div>
                 </div>
 
                 {/* Copyright */}
-                <div className="mt-10 pt-6 border-t border-border/30">
+                <div className="mt-10 pt-6 border-t border-neutral-600/30">
                     <p className="text-sm text-muted-foreground">
                         © {new Date().getFullYear()} Between Spins. All rights
                         reserved.
